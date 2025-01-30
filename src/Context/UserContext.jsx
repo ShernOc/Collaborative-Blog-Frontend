@@ -14,7 +14,9 @@ export const UserProvider = ({ children }) =>
     console.log("Current user ",current_user)
 
 
-    // LOGIN
+// Functions 
+
+    // LOGIN / 
     const login = (email, password) => 
     {
         toast.loading("Logging you in ... ")
@@ -100,10 +102,12 @@ export const UserProvider = ({ children }) =>
     };
 
 
-    // Fetch current user
+// Fetch current user
+
     useEffect(()=>{
         fetchCurrentUser()
-    }, [])
+    }, []);
+
     const fetchCurrentUser = () => 
     {
         console.log("Current user fcn ",authToken);
@@ -122,6 +126,7 @@ export const UserProvider = ({ children }) =>
           }
         });
     };
+
 
     //Add User 
     const addUser = (username, email, password) => 
@@ -177,8 +182,9 @@ export const UserProvider = ({ children }) =>
     authToken,
     login,
     current_user,
+    fetchCurrentUser,
     logout,
-    addUser, // 
+    addUser, 
     updateUser,
     deleteUser,
   };

@@ -5,10 +5,8 @@ import Blog from './Components/Blog'
 import './App.css'
 import Comment from './Components/Comment'
 import Contact from './Components/Contact';
-import Navbar from './Components/Navbar';
 import Login from './Components/Login';
 import Signup from './Components/Signup';
-import Footer from './Components/Footer';
 import BlogProvider from './Context/BlogContext';
 import UserProvider from './Context/UserContext';
 
@@ -51,7 +49,6 @@ function App() {
     <BrowserRouter>
     <UserProvider>
     <BlogProvider>
-    <Navbar/>
     <Routes>
       <Route path="/" element = {<Home/>}/>
       <Route path="/blog" element = {<Blog/>}/>
@@ -60,7 +57,6 @@ function App() {
       <Route path="/login" element = {<Login/>}/>
       <Route path="/signup" element = {<Signup/>}/>
       </Routes>
-    <Footer/>
     </BlogProvider>
     </UserProvider>
     </BrowserRouter>
