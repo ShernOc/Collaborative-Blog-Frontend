@@ -14,9 +14,7 @@ function Home() {
                   Writing is an art, a way of expressing your thoughts freely. Wether you are a programmer, storyteller,or just you, remember that every word matters. Hope On!!  
                 </p>
     
-                <button onClick={() => navigate("/login")} className="bg-blue-900 hover:bg-cyan-700 text-white px-3 py-3 rounded-lg text-lg font-semibold">
-                  Start Writing
-                </button>
+                <button onClick={() => navigate("/signup")} className="bg-blue-900 hover:bg-cyan-700 text-white px-3 py-3 rounded-lg text-lg font-semibold">Signup</button>
             </div>
             </>
           );

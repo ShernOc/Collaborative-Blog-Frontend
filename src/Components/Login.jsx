@@ -1,5 +1,5 @@
 // Login.jsx
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 // import { Navigate, useNavigate } from 'react-router';
 import { Link } from 'react-router';
 // import { useAuth } from "./Signin";
@@ -14,41 +14,47 @@ const Login = () => {
 // event onSubmit 
   const handleSubmit = (e) => {
     e.preventDefault();
-    (email, password);
-    //  useNavigate("/login")
+    if (email != email, password!=password){
+      alert("Password or email is wrong")
+    }("/login")
   };
-// justify-center p-60 bg-white
+
+
   return (
     <div className="flex justify-center items-center min-h-[80vh]">
+      <h1 className="justify-items Center">Login Page</h1>
+
       <form 
       onSubmit={handleSubmit} 
-      className="flex flex-col items-center w-2xs space-y-8 bg-cyan-100 rounded-2xl ">
-        <h2 className="text-2xl font-bold mb-4 text-center">Login</h2>
+      className="flex flex-col items-center w-2xs space-y-8 bg-cyan-100 rounded-2xl h-min ">
 
-        <div className='relative mb-6'>
-          <label className=" text-2xl block  font-medium">Email</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full p-2 border rounded"
-            placeholder='Enter Email'
-            required
+      <h3 className="text-2xl my-4  mb-2 font-bold font-mono">Login</h3>
+
+      <div className='relative mb-6'>
+        <label className=" flex items-center mb-2 text-2xl font-medium">Email</label>
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="block w-full h-12 px-10 py-2.5 bg-white leading-7 text-base font-normal shadow-xs text-gray-900 border border-gray-300 rounded-full placeholder-gray-400 focus:outline-none"
+          placeholder='Enter Email'
+          required
           />
         </div>
         <div className='relative mb-6'>
-          <label className="block text-2xl font-medium">Password</label>
+            <label className="block text-2xl font-medium">Password</label>
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className=" block w-full  p-2 border rounded"
+            className=" block w-full h-12 px-10 py-2.5 bg-white leading-6 text-base font-normal shadow-xs text-gray-900 border border-gray-300 rounded-full placeholder-gray-400 focus:outline-none"
             placeholder=' Enter Password'
             required
           />
         </div>
       
-        <button type="button" className=" block md:hover:bg-cyan-800 bg-gray-500 focus:ring-4 focus:outline-none focus:ring-black font-bold rounded-2xl px-3 py-2 text-center "> Login </button>
+        <button type="button" className=" h-12 bg-gray-500 hover:bg-cyan-800 transition-all duration-700 rounded-full shadow-xs text-white text-base font-semibold leading-6 mb-6 px-10"
+        > Login </button>
         <div>
           Not Signed? <Link to="/signup" className='text-blue-950 font-semibold'>Signup</Link>
         </div>

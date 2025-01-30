@@ -7,6 +7,7 @@ import Comment from './Components/Comment'
 import Contact from './Components/Contact';
 import Navbar from './Components/Navbar';
 import Login from './Components/Login';
+import Signup from './Components/Signup';
 import Footer from './Components/Footer';
 
 function App() {
@@ -48,12 +49,12 @@ function App() {
     <Navbar/>
     <Routes>
       <Route path="/" element = {<Home/>}/>
-      <Route path="/" element = {<Blog/>}/>
-      <Route path="/" element = {<Contact/>}/>
-      <Route path="/" element = {<Comment/>}/>
+      <Route path="/blog" element = {<Blog/>}/>
+      <Route path="/contact" element = {<Contact/>}/>
+      <Route path="/comment" element = {<Comment/>}/>
       <Route path="/login" element = {<Login/>}/>
+      <Route path="/signup" element = {<Signup/>}/>
     </Routes>
-   
     <Footer/>
     </BrowserRouter>
    

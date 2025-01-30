@@ -9,7 +9,8 @@ function Footer(){
 
     return (
         <>
-        <footer className='w-auto bg-black text-zinc-400 '>
+        {/* The footer is fixed */}
+        <footer className='fixed bottom-0 bg-black text-zinc-400 w-full mx-auto '>
             <ul className="flex flex-wrap items-center mb-6  sm:mb-0 font-semibold   sm:justify-between" >
             <li><a href="#" target="_blank" className='hover:underline'><FontAwesomeIcon icon={faLinkedin} />Linkedin</a>
             </li> 
@@ -17,7 +18,7 @@ function Footer(){
             <li><a href="https://github.com/ShernOc" target="_blank" className='hover:underline'><FontAwesomeIcon icon={faGithub} /> GitHub</a></li>
              </ul>
              <hr className='bg-white border-gray-600'/>
-             <ul className='justify-items-center'>
+             <ul className='justify-items-center p-3'>
                 <li>{text}</li>
              </ul>
         <div className="sm:justify-end">
