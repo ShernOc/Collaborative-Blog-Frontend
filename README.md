@@ -1,12 +1,8 @@
-# Collaborative Blog Platform-FrontEnd
 
 # Collaborative Blog Platform : 
 - Is a blogging platform that allows User/Clients be able to share there thoughts: 
 
-#Look at the Code-Thoughts. 
 
-# #Blog
-# #Collaboration 
 # Models: 
 - User, Blog, Editors, Comments
 
@@ -14,6 +10,11 @@
 - A Use can write a many blogs, and comments on the blog. 
 - Here the user can Create, Update, Get and Delete the Blogs and Comments. 
 
+
+# Future: 
+
+- Admin being the only one to add users/ and delete users
+- 
 
 
 

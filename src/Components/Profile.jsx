@@ -3,6 +3,7 @@ import { UserContext } from '../Context/UserContext';
 import { useState } from 'react';
 
 
+
 function Profile(){
 
   const {current_user,updateUser} = useContext(UserContext)
@@ -29,9 +30,9 @@ function Profile(){
   return (
     <>
     { 
-    !current_user?( "Not authorized")
+    !current_user?("Not authorized")
     :(
-    <div className="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg mt-10">
+    <div className="max-w-4xl mx-auto p-6 bg-gray-600 shadow-lg rounded-lg mt-10">
       <h2 className="text-3xl font-semibold text-gray-700 mb-6">Profile Page</h2>
 
       <div className="space-y-4">
@@ -46,6 +47,7 @@ function Profile(){
             className="border p-2 rounded"
            />
          ) : (
+            // used : if not user display empty 
            <p className="text-gray-800">{ current_user &&current_user.name}</p>
          )} </div>
          
@@ -109,7 +111,6 @@ function Profile(){
     </>
   );
 }
-
 
 export default Profile;
 

@@ -2,7 +2,7 @@
 import { useState, useContext } from 'react';
 // import { Navigate, useNavigate } from 'react-router';
 import { Link } from 'react-router';
-import { UserContext } from '../contentext/UserContext';
+import { UserContext } from '../Context/UserContext';
 // import { useAuth } from "./Signin";
 // // import { Navigate } from 'react-router';
 

@@ -4,12 +4,13 @@ import Home from './Components/Home';
 import Blog from './Components/Blog'
 import './App.css'
 import Comment from './Components/Comment'
+import CreateBlog from './Components/CreateBlog';
 import Contact from './Components/Contact';
 import Profile from './Components/Profile';
 import Login from './Components/Login';
 import Signup from './Components/Signup';
-import BlogProvider from './contentext/BlogContext';
-import UserProvider from './contentext/UserContext';
+import BlogProvider from './Context/BlogContext';
+import UserProvider from './Context/UserContext';
 
 
 function App() {
@@ -53,6 +54,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/blog" element={<Blog />} />
+              <Route path="/createblog" element={<CreateBlog />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/comment" element={<Comment />} />

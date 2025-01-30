@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import {toast} from "react-toastify"
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export const UserContext = createContext();
 
@@ -14,9 +14,9 @@ export const UserProvider = ({ children }) =>
     console.log("Current user ",current_user)
 
 
-// Functions 
+// Functions Fetching 
 
-    // LOGIN / 
+// LOGIN 
     const login = (email, password) => 
         // loads for the data 
     {
@@ -106,8 +106,7 @@ export const UserProvider = ({ children }) =>
     };
 
 
-// Fetch current user
-
+// Fetch/ Get current user
     useEffect(()=>{
         fetchCurrentUser()
     }, [])
@@ -169,6 +168,10 @@ export const UserProvider = ({ children }) =>
 
         
     };
+
+
+
+
 
     // Update A User 
     const updateUser = () => 

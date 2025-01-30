@@ -29,7 +29,7 @@ function Navbar(){
             <Link to ="/profile" className="block py-2 px-3 text-zinc-300 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-cyan-300  dark:border-gray-700">Profile</Link>
             </li>
             <li>
-        <Link to ="/blog" className="block py-2 px-3 text-zinc-300 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-cyan-300  dark:border-gray-700">MyBlogs</Link>
+        <Link to ="/createblog" className="block py-2 px-3 text-zinc-300 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-cyan-300  dark:border-gray-700">Add a Blog</Link>
       </li>
       <li>
         <Link to = "/"><button type="button" className=" block md:hover:bg-cyan-100 bg-emerald-300 focus:ring-4 focus:outline-none focus:ring-cyan-400 font-semibold rounded-3xl px-3 py-2 text-center ">Logout</button> </Link>
