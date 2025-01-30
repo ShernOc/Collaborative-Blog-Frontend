@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react';
-import { BrowserRouter,Route,Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from './Components/Home';
 import Blog from './Components/Blog'
 import './App.css'
 import Comment from './Components/Comment'
 import Contact from './Components/Contact';
+import Profile from './Components/Profile';
 import Login from './Components/Login';
 import Signup from './Components/Signup';
-import BlogProvider from './Context/BlogContext';
-import UserProvider from './Context/UserContext';
+import BlogProvider from './contentext/BlogContext';
+import UserProvider from './contentext/UserContext';
 
 
 function App() {
@@ -16,7 +17,7 @@ function App() {
   //   <>
   //   {/* <Dashboard/>
   //   <Contact/>
-  
+
   //   <Comment/> */}
 
   //   <Blogcard/>
@@ -24,10 +25,10 @@ function App() {
 
   // )
 
-//   // hold the data
-  const [error, setError] = useState(null); 
+  //   // hold the data
+  const [error, setError] = useState(null);
   // State to hold errors
-  const [data,setData] =  useState(null)
+  const [data, setData] = useState(null)
   // api variable
   const apiUrl = 'http://127.0.0.1:5000/';
 
@@ -46,37 +47,38 @@ function App() {
 
   return (
     <>
-    <BrowserRouter>
-    <UserProvider>
-    <BlogProvider>
-    <Routes>
-      <Route path="/" element = {<Home/>}/>
-      <Route path="/blog" element = {<Blog/>}/>
-      <Route path="/contact" element = {<Contact/>}/>
-      <Route path="/comment" element = {<Comment/>}/>
-      <Route path="/login" element = {<Login/>}/>
-      <Route path="/signup" element = {<Signup/>}/>
-      </Routes>
-    </BlogProvider>
-    </UserProvider>
-    </BrowserRouter>
-    
+      <BrowserRouter>
+        <UserProvider>
+          <BlogProvider>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/comment" element={<Comment />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
+            </Routes>
+          </BlogProvider>
+        </UserProvider>
+      </BrowserRouter>
+
       <div>
-      
-      <h1 className=' text-3xl text-emerald-500 font-bold'>Collaborative Blog Platform </h1>
-      <p>Loading...
-        Success the app is loading </p> 
 
-      {error && <p style={{ color: 'red' }}>Error: {error}</p>}
-      {data ? (
-        <pre>{JSON.stringify(data, null, 2)}</pre>
-      ) : ( 
+        <h1 className=' text-3xl text-emerald-500 font-bold'>Collaborative Blog Platform </h1>
         <p>Loading...
-        Success the app is loading </p>
-      )}
+          Success the app is loading </p>
 
-     </div>
-  </>
+        {error && <p style={{ color: 'red' }}>Error: {error}</p>}
+        {data ? (
+          <pre>{JSON.stringify(data, null, 2)}</pre>
+        ) : (
+          <p>Loading...
+            Success the app is loading </p>
+        )}
+
+      </div>
+    </>
   )
 }
 

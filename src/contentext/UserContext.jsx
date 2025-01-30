@@ -18,6 +18,7 @@ export const UserProvider = ({ children }) =>
 
     // LOGIN / 
     const login = (email, password) => 
+        // loads for the data 
     {
         toast.loading("Logging you in ... ")
         fetch("https://collaborative-blog-backend.onrender.com/login",{
@@ -33,12 +34,13 @@ export const UserProvider = ({ children }) =>
         .then((response)=>{
             if(response.access_token){
                 toast.dismiss()
-
+                // set the session storage/ save it the token 
                 sessionStorage.setItem("token", response.access_token);
 
+                // set auth_token 
                 setAuthToken(response.access_token)
 
-                fetch('https://todo-flask-65o6.onrender.com/current_user',{
+                fetch("https://collaborative-blog-backend.onrender.com/current_user",{
                     method:"GET",
                     headers: {
                         'Content-type': 'application/json',
@@ -48,6 +50,7 @@ export const UserProvider = ({ children }) =>
                 .then((response) => response.json())
                 .then((response) => {
                   if(response.email){
+                    // saved as current user
                           setCurrentUser(response)
                         }
                 });
@@ -74,7 +77,7 @@ export const UserProvider = ({ children }) =>
     {
 
         toast.loading("Logging out ... ")
-        fetch("https://todo-flask-65o6.onrender.com/logout",{
+        fetch("https://collaborative-blog-backend.onrender.com/logout",{
             method:"DELETE",
             headers: {
                 'Content-type': 'application/json',
@@ -88,6 +91,7 @@ export const UserProvider = ({ children }) =>
            
             if(response.success)
             {
+                // Remove the session storage 
                 sessionStorage.removeItem("token");
                 setAuthToken(null)
                 setCurrentUser(null)
@@ -106,13 +110,13 @@ export const UserProvider = ({ children }) =>
 
     useEffect(()=>{
         fetchCurrentUser()
-    }, []);
+    }, [])
 
     const fetchCurrentUser = () => 
     {
-        console.log("Current user fcn ",authToken);
+        console.log("Current user function ",authToken);
         
-        fetch('https://todo-flask-65o6.onrender.com/current_user',{
+        fetch("https://collaborative-blog-backend.onrender.com/current_user",{
             method:"GET",
             headers: {
                 'Content-type': 'application/json',
@@ -147,7 +151,7 @@ export const UserProvider = ({ children }) =>
             
             if(response.msg){
                 toast.dismiss()
-                toast.success(response.msg)
+                toast.success(response.success)
                 navigate("/login")
             }
             else if(response.error){
@@ -157,16 +161,16 @@ export const UserProvider = ({ children }) =>
             }
             else{
                 toast.dismiss()
-                toast.error("Failed to add")
+                toast.error(response.error)
 
             }
-          
-            
+               
         })
 
         
     };
 
+    // Update A User 
     const updateUser = () => 
     {
         console.log("Updating user:");
@@ -178,6 +182,8 @@ export const UserProvider = ({ children }) =>
         console.log("Deleting user:", userId);
     };
 
+
+    
   const data = {
     authToken,
     login,
