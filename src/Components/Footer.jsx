@@ -1,25 +1,28 @@
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faEnvelope } from "@fortawesome/free-regular-svg-icons/faEnvelope";
-// import { faLinkedin } from "@fortawesome/free-brands-svg-icons";
-// import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
+import { faLinkedin } from "@fortawesome/free-brands-svg-icons";
+import { faGithub } from "@fortawesome/free-brands-svg-icons";
 
 function Footer(){
     const PresentYear = new Date().getFullYear();
-    const text = `Copyright © ${PresentYear} Sherlyne Ochieng  `
+    const text = `Copyright © ${PresentYear}. Sherlyne Ochieng`
 
     return (
         <>
-        <div id="contacts" >
-            <h1>Footer</h1>
-            <ul >
-            {/* <li><a href="mailto:sherlynea8622@gmail.com"><FontAwesomeIcon icon={faEnvelope} /> sherlynea8622@gmail.com</a></li>
-            <li><a href="#" target="_blank"><FontAwesomeIcon icon={faLinkedin} />Linkedin</a>
-            </li>
-            <li><a href="https://github.com/ShernOc" target="_blank"><FontAwesomeIcon icon={faGithub} /> GitHub</a></li> */}
-            </ul>
+        <footer className='w-auto bg-black text-zinc-400 '>
+            <ul className="flex flex-wrap items-center mb-6  sm:mb-0 font-semibold   sm:justify-between" >
+            <li><a href="#" target="_blank" className='hover:underline'><FontAwesomeIcon icon={faLinkedin} />Linkedin</a>
+            </li> 
+            <li><a href="mailto:sherlynea8622@gmail.com" className='hover:underline'><FontAwesomeIcon icon={faEnvelope} /> sherlynea8622@gmail.com</a></li>
+            <li><a href="https://github.com/ShernOc" target="_blank" className='hover:underline'><FontAwesomeIcon icon={faGithub} /> GitHub</a></li>
+             </ul>
+             <hr className='bg-white border-gray-600'/>
+             <ul className='justify-items-center'>
+                <li>{text}</li>
+             </ul>
+        <div className="sm:justify-end">
         </div>
-
-        {text} 
+        </footer>
         </>
     )
     }

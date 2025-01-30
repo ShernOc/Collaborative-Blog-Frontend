@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
-// import Blog from './Components/Blog'
-// import './App.css'
-// import Comment from './Components/Comment'
-// import Dashboard from './Components/Dashboard'
-// import Contact from './Components/Contact'
-
-import Blogcard2 from "./Components/Blogcard2"
+import { BrowserRouter,Route,Routes } from 'react-router-dom';
+import Home from './Components/Home';
+import Blog from './Components/Blog'
+import './App.css'
+import Comment from './Components/Comment'
+import Contact from './Components/Contact';
+import Navbar from './Components/Navbar';
+import Login from './Components/Login';
+import Footer from './Components/Footer';
 
 function App() {
 
@@ -42,8 +44,25 @@ function App() {
 
   return (
     <>
-      <Blogcard2/>
+    <BrowserRouter>
+    <Navbar/>
+    <Routes>
+      <Route path="/" element = {<Home/>}/>
+      <Route path="/" element = {<Blog/>}/>
+      <Route path="/" element = {<Contact/>}/>
+      <Route path="/" element = {<Comment/>}/>
+      <Route path="/login" element = {<Login/>}/>
+    </Routes>
+   
+    <Footer/>
+    </BrowserRouter>
+   
+
+
+      <br />
+      <br /> <br /> <br /> <br /> 
       <div>
+      
       <h1 className=' text-3xl text-emerald-500 font-bold'>Collaborative Blog Platform </h1>
       <p>Loading...
         Success the app is loading </p> 

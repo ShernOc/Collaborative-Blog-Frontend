@@ -1,49 +1,58 @@
 // Login.jsx
 import { useState } from 'react';
-import { useNavigate } from 'react-router';
+// import { Navigate, useNavigate } from 'react-router';
+import { Link } from 'react-router';
 // import { useAuth } from "./Signin";
 // // import { Navigate } from 'react-router';
+
 
 const Login = () => {
 //   const { login } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate();
 
-// event onSubmit
+// event onSubmit 
   const handleSubmit = (e) => {
     e.preventDefault();
-    login(email, password);
-    navigate('/login')
-
+    (email, password);
+    //  useNavigate("/login")
   };
-
+// justify-center p-60 bg-white
   return (
-    <div className="container mx-auto p-4">
-      <h2 className="text-xl font-bold mb-4">Login</h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label className="block text-sm font-medium">Email</label>
+    <div className="flex justify-center items-center min-h-[80vh]">
+      <form 
+      onSubmit={handleSubmit} 
+      className="flex flex-col items-center w-2xs space-y-8 bg-cyan-100 rounded-2xl ">
+        <h2 className="text-2xl font-bold mb-4 text-center">Login</h2>
+
+        <div className='relative mb-6'>
+          <label className=" text-2xl block  font-medium">Email</label>
           <input
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="w-full p-2 border rounded"
+            placeholder='Enter Email'
             required
           />
         </div>
-        <div>
-          <label className="block text-sm font-medium">Password</label>
+        <div className='relative mb-6'>
+          <label className="block text-2xl font-medium">Password</label>
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full p-2 border rounded"
+            className=" block w-full  p-2 border rounded"
+            placeholder=' Enter Password'
             required
           />
         </div>
-        <button type="submit" className="bg-green-100
-        px-2 py-1 rounded">Login</button>
+      
+        <button type="button" className=" block md:hover:bg-cyan-800 bg-gray-500 focus:ring-4 focus:outline-none focus:ring-black font-bold rounded-2xl px-3 py-2 text-center "> Login </button>
+        <div>
+          Not Signed? <Link to="/signup" className='text-blue-950 font-semibold'>Signup</Link>
+        </div>
+
       </form>
     </div>
   );
