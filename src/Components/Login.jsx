@@ -18,17 +18,14 @@ const Login = () => {
       alert("Password or email is wrong")
     }("/login")
   };
-
-
+  
   return (
     <div className="flex justify-center items-center min-h-[80vh]">
-      <h1 className="justify-items Center">Login Page</h1>
-
       <form 
       onSubmit={handleSubmit} 
       className="flex flex-col items-center w-2xs space-y-8 bg-cyan-100 rounded-2xl h-min ">
 
-      <h3 className="text-2xl my-4  mb-2 font-bold font-mono">Login</h3>
+      <h3 className="text-2xl my-4  mb-2 font-bold font-mono">Login Page</h3>
 
       <div className='relative mb-6'>
         <label className=" flex items-center mb-2 text-2xl font-medium">Email</label>

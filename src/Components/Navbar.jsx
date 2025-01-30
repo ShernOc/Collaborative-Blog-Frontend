@@ -17,7 +17,7 @@ function Navbar(){
     </button>
     
       <img src="images/logo.jpg" className="h-15" alt="Flowbite Logo"/>
-      <a className="bg-gradient-to-r from-cyan-700 to-teal-600 bg-clip-text text-4xl font-bold tracking-tighter text-transparent dark:from-cyan-300 dark:to-teal-200" href="/">Collaborative Blog Platform</a>
+      <a className="bg-gradient-to-r from-cyan-700 to-teal-600 bg-clip-text text-4xl font-semibold tracking-tighter text-transparent dark:from-cyan-300 dark:to-teal-200" href="/">Collaborative Blog Platform</a>
     </a>
     {/* Main Navbar */}
     <div className="items-center justify-between hidden w-full md:flex md:w-auto  md:order-1" id="navbar-default">
@@ -34,11 +34,14 @@ function Navbar(){
       </li>
       <li>
         <Link to ="/login">
-        <button type="button" className=" block md:hover:bg-cyan-100 bg-gray-500 focus:ring-4 focus:outline-none focus:ring-cyan-400 font-bold rounded-3xl px-3 py-2 text-center "> Login </button> 
+        <button type="button" className=" block md:hover:bg-cyan-100 bg-gray-500 focus:ring-4 focus:outline-none focus:ring-cyan-400 font-semibold rounded-3xl px-3 py-2 text-center "> Login </button> 
         </Link>
       </li>
       <li>
-        <Link to = "/logout"><button type="button" className=" block md:hover:bg-cyan-100 bg-emerald-300 focus:ring-4 focus:outline-none focus:ring-cyan-400 font-bold rounded-3xl px-3 py-2 text-center ">Logout</button> </Link>
+        <Link to = "/"><button type="button" className=" block md:hover:bg-cyan-100 bg-emerald-300 focus:ring-4 focus:outline-none focus:ring-cyan-400 font-semibold rounded-3xl px-3 py-2 text-center ">Logout</button> </Link>
+      </li>
+      <li>
+        <Link to = "/signup"><button type="button" className=" block md:hover:bg-cyan-100 bg-emerald-300 focus:ring-4 focus:outline-none focus:ring-cyan-400 font-semibold rounded-3xl px-3 py-2 text-center ">Signup</button> </Link>
       </li>
 
     </ul>

@@ -9,6 +9,9 @@ import Navbar from './Components/Navbar';
 import Login from './Components/Login';
 import Signup from './Components/Signup';
 import Footer from './Components/Footer';
+import BlogProvider from './Context/BlogContext';
+import UserProvider from './Context/UserContext';
+
 
 function App() {
 
@@ -46,6 +49,8 @@ function App() {
   return (
     <>
     <BrowserRouter>
+    <UserProvider>
+    <BlogProvider>
     <Navbar/>
     <Routes>
       <Route path="/" element = {<Home/>}/>
@@ -54,14 +59,12 @@ function App() {
       <Route path="/comment" element = {<Comment/>}/>
       <Route path="/login" element = {<Login/>}/>
       <Route path="/signup" element = {<Signup/>}/>
-    </Routes>
+      </Routes>
     <Footer/>
+    </BlogProvider>
+    </UserProvider>
     </BrowserRouter>
-   
-
-
-      <br />
-      <br /> <br /> <br /> <br /> 
+    
       <div>
       
       <h1 className=' text-3xl text-emerald-500 font-bold'>Collaborative Blog Platform </h1>
