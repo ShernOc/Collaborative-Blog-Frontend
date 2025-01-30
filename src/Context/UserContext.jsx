@@ -178,7 +178,7 @@ export const UserProvider = ({ children }) =>
     login,
     current_user,
     logout,
-    addUser,
+    addUser, // 
     updateUser,
     deleteUser,
   };
