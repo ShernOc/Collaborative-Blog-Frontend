@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 const BlogContext = createContext();
 
-function  BlogProvider({ children }) {
+function  BlogProvider({children}) {
 
     // initialize the state 
     const navigate = useNavigate();
