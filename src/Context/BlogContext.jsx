@@ -1,11 +1,11 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { UserContext } from "./UserContext";
+import {UserContext} from './UserContext'
 import { useNavigate } from "react-router-dom";
 
 const BlogContext = createContext();
 
-function  BlogProvider({children}) {
+function BlogProvider({children}) {
 
     // initialize the state 
     const navigate = useNavigate();
@@ -15,10 +15,11 @@ function  BlogProvider({children}) {
     const [onChange, setOnchange] = useState(true);
 
 // ================BLOGS==========================
- 
-// Fetch/Get  Blogs
+// Fetch/Get Blogs
 
     useEffect(()=>{
+        // no token no blog 
+        if (!authToken) return;
         fetch("https://collaborative-blog-backend.onrender.com/blogs",{
                 method:"GET",
                 headers: {
@@ -30,47 +31,46 @@ function  BlogProvider({children}) {
             .then((response) => {
                 setBlogs(response)
             });
-   }, [onChange])
+   }, [onChange,authToken])
  
-    // Add Todo
+    // Add Blog
     const addBlog= ( title, content, is_published) => 
     {
        
-                toast.loading("Adding a blog ... ")
-                fetch("https://collaborative-blog-backend.onrender.com/blogs",{
-                    method:"POST",
-                    headers: {
-                        'Content-type': 'application/json',
-                        Authorization: `Bearer ${authToken}`
-                      },
-                    body: JSON.stringify({
-                        title, content, is_published
-                    })
-                })
-                .then((resp)=>resp.json())
-                .then((response)=>{
-                    console.log(response);
-                    
-                    if(response.success){
-                        toast.dismiss()
-                        toast.success(response.success)
-                        setOnchange(!onChange)
-                    }
-                    else if(response.error){
-                        toast.dismiss()
-                        toast.error(response.error)
-        
-                    }
-                    else{
-                        toast.dismiss()
-                        toast.error("Failed to add a blog")
-        
+        toast.loading("Adding a blog ... ")
+        fetch("https://collaborative-blog-backend.onrender.com/blogs",{
+            method:"POST",
+            headers: {
+            'Content-type': 'application/json',
+            Authorization: `Bearer ${authToken}`
+            },
+            body: JSON.stringify({
+                title, content, is_published
+            })
+        })
+        .then((resp)=>resp.json())
+        .then((response)=>{
+            console.log(response);
+            if(response.success){
+                toast.dismiss()
+                toast.success(response.success);
+                setOnchange(!onChange)
+            }
+            else if(response.error){
+                toast.dismiss()
+                toast.error(response.error)
+
+            }
+            else{
+                toast.dismiss()
+                toast.error("Failed to add a blog")
+
                     }   
                 })
  }
     
-    
-    const updateBlog = (title, content, is_published) => 
+ //Update Blog
+    const updateBlog = ( blog_id, title, content, is_published) => 
     {
         toast.loading("Updating blog ... ")
         fetch(`https://collaborative-blog-backend.onrender.com/blogs/${blog_id}`,{
@@ -105,12 +105,11 @@ function  BlogProvider({children}) {
         console.log("Updating blog..");
     }
 
-
     //  Delete BLog
-    const deleteBlog = (id) => 
+    const deleteBlog = (blog_Id) => 
     {
         toast.loading("Deleting Blog ... ")
-        fetch(`https://collaborative-blog-backend.onrender.com/blogs/${blogId}`,{
+        fetch(`https://collaborative-blog-backend.onrender.com/blogs/${blog_Id}`,{
             method:"DELETE",
             headers: {
                 'Content-type': 'application/json',
@@ -125,9 +124,8 @@ function  BlogProvider({children}) {
                 toast.dismiss()
                 toast.success(response.success)
                 setOnchange(!onChange)
-                navigate("/login")
- 
             }
+
             else if(response.error){
                 toast.dismiss()
                 toast.error(response.error || "Failed to delete blog!")
@@ -200,7 +198,6 @@ function  BlogProvider({children}) {
     deleteBlog,
     addEditors
   }
-
 
   return (
   <BlogContext.Provider value={data}>

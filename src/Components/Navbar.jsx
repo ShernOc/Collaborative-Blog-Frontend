@@ -1,6 +1,6 @@
 // import React from "react";
-import { Link, Outlet } from "react-router-dom";
-import {useAuth} from '..context/UserContext'
+import { Link } from "react-router-dom";
+// import {useAuth} from '..Context/UserContext'
 
 function Navbar(){
    const {user} = userAuth(); 
@@ -21,15 +21,17 @@ function Navbar(){
         <Link to = "/" className="block py-2 px-3 text-cyan-300 rounded-sm md:bg-transparent md:text-cyan-300  md:dark:text-cyan-300" aria-current="page">Home</Link>
       </li>
       <li>
-        {/* <div id="protect routes ">
+        <Link to = "/dashboard" className="block py-2 px-3 text-cyan-300 rounded-sm md:bg-transparent md:text-cyan-300  md:dark:text-cyan-300" aria-current="page">Blogs</Link>
+      </li>
+      <li>
+        <div id="protect routes ">
           {user ? (
-
             <>
-            <li>
-            <Link to ="/profile" className="block py-2 px-3 text-zinc-300 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-cyan-300  dark:border-gray-700">Profile</Link>
-            </li>
-            <li>
-        <Link to ="/createblog" className="block py-2 px-3 text-zinc-300 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-cyan-300  dark:border-gray-700">Add a Blog</Link>
+          <li>
+          <Link to ="/profile" className="block py-2 px-3 text-zinc-300 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-cyan-300  dark:border-gray-700">Profile</Link>
+          </li>
+          <li>
+        <Link to ="/addblog" className="block py-2 px-3 text-zinc-300 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-cyan-300  dark:border-gray-700">Add a Blog</Link>
       </li>
       <li>
         <Link to = "/"><button type="button" className=" block md:hover:bg-cyan-100 bg-emerald-300 focus:ring-4 focus:outline-none focus:ring-cyan-400 font-semibold rounded-3xl px-3 py-2 text-center ">Logout</button> </Link>
@@ -40,31 +42,15 @@ function Navbar(){
          <button type="button" className=" block md:hover:bg-cyan-100 bg-gray-500 focus:ring-4 focus:outline-none focus:ring-cyan-400 font-semibold rounded-3xl px-3 py-2 text-center "> Login </button> 
          </Link>
        </li>)}
-       
-       </div> */}
-      
-            <li>
-            <Link to ="/profile" className="block py-2 px-3 text-zinc-300 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-cyan-300  dark:border-gray-700">Profile</Link>
-            </li>
-            <li>
-        <Link to ="/blog" className="block py-2 px-3 text-zinc-300 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-cyan-300  dark:border-gray-700">MyBlogs</Link>
+       </div>
+        <Link to ="/contact" className="block py-2 px-3 text-zinc-300 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-cyan-300  dark:border-gray-700">Contacts</Link>
       </li>
-      <li>
-        <Link to = "/"><button type="button" className=" block md:hover:bg-cyan-100 bg-emerald-300 focus:ring-4 focus:outline-none focus:ring-cyan-400 font-semibold rounded-3xl px-3 py-2 text-center ">Logout</button> </Link>
-      </li>
-  
          <li>
-         <Link to ="/login">
-         <button type="button" className=" block md:hover:bg-cyan-100 bg-gray-500 focus:ring-4 focus:outline-none focus:ring-cyan-400 font-semibold rounded-3xl px-3 py-2 text-center "> Login </button> 
+         <Link to ="/signup">
+         <button type="button" className=" block md:hover:bg-cyan-100 bg-gray-500 focus:ring-4 focus:outline-none focus:ring-cyan-400 font-semibold rounded-3xl px-3 py-2 text-center "> Signup </button> 
          </Link>
        </li>
        
-        <Link to ="/contact" className="block py-2 px-3 text-zinc-300 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-cyan-300  dark:border-gray-700">Contacts</Link>
-      </li>
-
-      <li>
-        <Link to ="/blog" className="block py-2 px-3 text-zinc-300 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-cyan-300  dark:border-gray-700">Blogs</Link>
-      </li>
       <li>
         <Link to ="/login">
         <button type="button" className=" block md:hover:bg-cyan-100 bg-gray-500 focus:ring-4 focus:outline-none focus:ring-cyan-400 font-semibold rounded-3xl px-3 py-2 text-center "> Login </button> 
@@ -74,13 +60,10 @@ function Navbar(){
       <li>
         <Link to = "/signup"><button type="button" className=" block md:hover:bg-cyan-100 bg-emerald-300 focus:ring-4 focus:outline-none focus:ring-cyan-400 font-semibold rounded-3xl px-3 py-2 text-center ">Signup</button> </Link>
       </li>
-
     </ul>
   </div>
   </div>
 </nav>
- <Outlet/>
- 
         </>
     )
 }

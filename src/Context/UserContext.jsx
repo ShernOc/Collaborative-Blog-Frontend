@@ -2,20 +2,18 @@ import { createContext, useEffect, useState } from "react";
 import {toast} from "react-toastify"
 import { useNavigate } from "react-router-dom";
 
-export const UserContext = createContext();
+const UserContext = createContext();
 
 export const UserProvider = ({ children }) => 
 {
-    const navigate = useNavigate()
-    const [authToken , setAuthToken] = useState( ()=> sessionStorage.getItem("token")  )
-    const [current_user, setCurrentUser] = useState(null)
-
+    const navigate = useNavigate();
+    const [authToken , setAuthToken] = useState( ()=> sessionStorage.getItem("token"));
+    const [current_user, setCurrentUser] = useState(null);
 
     console.log("Current user ",current_user)
 
 
 // Functions Fetching 
-
 // LOGIN 
     const login = (email, password) => 
         // loads for the data 
@@ -73,6 +71,7 @@ export const UserProvider = ({ children }) =>
         })
     };
 
+    //Logout  
     const logout = () => 
     {
 
@@ -130,7 +129,6 @@ export const UserProvider = ({ children }) =>
         });
     };
 
-
     //Add User 
     const addUser = (username, email, password) => 
     {
@@ -161,17 +159,9 @@ export const UserProvider = ({ children }) =>
             else{
                 toast.dismiss()
                 toast.error(response.error)
-
-            }
-               
-        })
-
-        
+            }              
+        })   
     };
-
-
-
-
 
     // Update A User 
     const updateUser = () => 
@@ -179,14 +169,12 @@ export const UserProvider = ({ children }) =>
         console.log("Updating user:");
     };
     
-
     const deleteUser = async (userId) => 
     {
         console.log("Deleting user:", userId);
     };
 
-
-    
+    // call the functions 
   const data = {
     authToken,
     login,

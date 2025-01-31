@@ -14,6 +14,7 @@
 # Future: 
 
 - Admin being the only one to add users/ and delete users
+- About page Progress: 
 - 
 
 

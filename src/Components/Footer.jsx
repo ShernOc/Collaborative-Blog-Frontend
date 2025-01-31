@@ -5,7 +5,7 @@ import { faGithub } from "@fortawesome/free-brands-svg-icons";
 
 function Footer(){
     const PresentYear = new Date().getFullYear();
-    const text = `Copyright © ${PresentYear}. Sherlyne Ochieng`
+    const text = `Copyright © ${PresentYear}.Sherlyne Ochieng`
 
     return (
         <>

@@ -28,7 +28,7 @@ function Login() {
 
   return (
     <div className="flex justify-center items-center min-h-[80vh]">
-      <form
+      <form id='logins'
         onSubmit={handleSubmit}
         className="flex flex-col items-center w-2xs space-y-8 bg-cyan-100 rounded-2xl h-min ">
 

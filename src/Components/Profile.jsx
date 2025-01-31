@@ -3,7 +3,6 @@ import { UserContext } from '../Context/UserContext';
 import { useState } from 'react';
 
 
-
 function Profile(){
 
   const {current_user,updateUser} = useContext(UserContext)
@@ -113,4 +112,6 @@ function Profile(){
 }
 
 export default Profile;
+
+
 

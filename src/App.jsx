@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from './Components/Home';
-import Blog from './Components/Blog'
+import Dashboard from './Components/Dashboard';
+import AddBlog from './Components/AddBlog';
 import './App.css'
-import Comment from './Components/Comment'
-import CreateBlog from './Components/CreateBlog';
 import Contact from './Components/Contact';
+import Navbar from './Components/Navbar';
+import Layout from './Components/Layout'
 import Profile from './Components/Profile';
 import Login from './Components/Login';
 import Signup from './Components/Signup';
@@ -15,18 +16,6 @@ import UserProvider from './Context/UserContext';
 
 function App() {
 
-  //   <>
-  //   {/* <Dashboard/>
-  //   <Contact/>
-
-  //   <Comment/> */}
-
-  //   <Blogcard/>
-  //   </>
-
-  // )
-
-  //   // hold the data
   const [error, setError] = useState(null);
   // State to hold errors
   const [data, setData] = useState(null)
@@ -38,7 +27,7 @@ function App() {
     fetch(`${apiUrl}/`)
       .then((response) => {
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error('Network not responsive');
         }
         return response.json();
       })
@@ -49,37 +38,34 @@ function App() {
   return (
     <>
       <BrowserRouter>
+      <Navbar/>
         <UserProvider>
           <BlogProvider>
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/blog" element={<Blog />} />
-              <Route path="/createblog" element={<CreateBlog />} />
+              <Route path="/addblog" element={<AddBlog/>} />
+              <Route path="/dashboard" element={<Dashboard/>} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/profile" element={<Profile />} />
-              <Route path="/comment" element={<Comment />} />
+              <Route path="/layout" element={<Layout/>} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
             </Routes>
           </BlogProvider>
         </UserProvider>
       </BrowserRouter>
-
+    
+    <br />
       <div>
-
-        <h1 className=' text-3xl text-emerald-500 font-bold'>Collaborative Blog Platform </h1>
-        <p>Loading...
-          Success the app is loading </p>
-
-        {error && <p style={{ color: 'red' }}>Error: {error}</p>}
-        {data ? (
-          <pre>{JSON.stringify(data, null, 2)}</pre>
-        ) : (
-          <p>Loading...
+        <h1>data is fetched</h1>
+          <p>Loading.. Success the app is loading </p>
+          {error && <p style={{ color: 'red' }}>Error: {error}</p>}
+            {data ? (
+            <pre>{JSON.stringify(data, null, 2)}</pre>) : (
+            <p>Loading...
             Success the app is loading </p>
         )}
-
-      </div>
+          </div>
     </>
   )
 }

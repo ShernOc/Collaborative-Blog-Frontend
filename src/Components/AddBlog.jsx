@@ -1,57 +1,56 @@
-import {useState } from 'react';
+import {useState , useContext } from 'react';
+import { useBlog } from "../Context/BlogContext";
 import { UserContext } from '../Context/UserContext';
-import {BlogContext} from '../Context/BlogContext';
 import { useNavigate } from 'react-router-dom';
 
 
 function AddBlog(){
-  const {addBlog} = UserContext(BlogContext);
-  const {current_user} = UserContext(UserContext)
-  
+  const {addBlog} = useBlog();
+  const {current_user} = useContext(UserContext)
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [is_published, setIsPublished] = useState('false');
+  const [isPublished, setIsPublished] = useState('false');
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-    // handle form submit 
+  // handle form submit 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!title || !content) {
+    if(!title || !content) {
       setError("Title and content are required");
       return;
     }
-//  If not current user/ you have to log in
-    if (!current_user) {
+//  If not current user/ you have to log in log in 
+    if(!current_user) {
       setError("You need to be logged in to add a blog.");
       navigate("/login");
       return;
     }
 
-    const newBlog = {title, content,author:current_user.name,is_published};
+    // New blog creation 
+    const newBlog = {title, content,author:current_user.name,isPublished};
 
-    // calling the addblog from new blog
-    
+    // calling the add blog from new blog
   addBlog(newBlog)
   // resets the form to a new page 
   setTitle("");
   setContent("");
   setIsPublished(false);
-  
-    setError(""); // Clear error message
+  setError(""); // Clear error message
   };
 
     return(
       <>
       <div className="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg mt-10">
-      <h2 className="text-3xl font-semibold text-gray-700 mb-6">Add New Blog</h2>
+      <h2 className="text-3xl font-semibold text-gray-700 mb-6">Add a New Blog</h2>
 
       {/* Error message */}
       {error && <p className="text-red-500 mb-4">{error}</p>}
 
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-4" id='add_blogs'>
+      {/* blog title  */}
         <div>
-          <label htmlFor="title" className="block text-lg font-medium text-gray-600">
+          <label htmlFor="title" className="block text-lg font-medium text-zinc-600">
             Blog Title
           </label>
           <input
@@ -64,7 +63,7 @@ function AddBlog(){
             required
           />
         </div>
-
+{/* content  */}
         <div>
           <label htmlFor="content" className="block text-lg font-medium text-gray-600">
             Content
@@ -84,7 +83,7 @@ function AddBlog(){
           <label className="inline-flex items-center">
             <input
               type="checkbox"
-              checked={is_published}
+              checked={isPublished}
               onChange={(e) => setIsPublished(e.target.checked)}
               className="form-checkbox"
             />
@@ -103,7 +102,6 @@ function AddBlog(){
       </form>
     </div>
       
-        </>);
-   
+        </>); 
 };
 export default AddBlog;

@@ -1,6 +1,6 @@
 import  { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
-import {UserContext} from '..Context/UserContext';
+import { UserContext } from '../Context/UserContext';
 
 
 function Signup() {
@@ -21,11 +21,10 @@ function Signup() {
      addUser(username, email, password)
      
   };
-
   return (
     <div className="flex justify-center items-center min-h-[80vh]">
       <h1 className='justify-items-center'>Signup Page</h1>
-      <form
+      <form id='signup'
         onSubmit={handleSubmit}
         className="w-[40%] bg-cyan-100 p-4 rounded-2xl h-min"
       >
