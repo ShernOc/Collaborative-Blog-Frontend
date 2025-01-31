@@ -1,17 +1,17 @@
+/* eslint-disable react-refresh/only-export-components */
+/* eslint-disable react/prop-types */
 import { createContext, useEffect, useState } from "react";
-import {toast} from "react-toastify"
+import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
-const UserContext = createContext();
+export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => 
 {
     const navigate = useNavigate();
-    const [authToken , setAuthToken] = useState( ()=> sessionStorage.getItem("token"));
+    const [authToken , setAuthToken] = useState( ()=>sessionStorage.getItem("token"));
     const [current_user, setCurrentUser] = useState(null);
-
     console.log("Current user ",current_user)
-
 
 // Functions Fetching 
 // LOGIN 
@@ -66,53 +66,29 @@ export const UserProvider = ({ children }) =>
                 toast.error("Failed to login")
 
             }
-          
-            
+         
         })
     };
 
     //Logout  
     const logout = () => 
     {
-
-        toast.loading("Logging out ... ")
-        fetch("https://collaborative-blog-backend.onrender.com/logout",{
-            method:"DELETE",
-            headers: {
-                'Content-type': 'application/json',
-                Authorization: `Bearer ${authToken}`
-              },
-       
-        })
-        .then((resp)=>resp.json())
-        .then((response)=>{
-           console.log(response);
-           
-            if(response.success)
-            {
-                // Remove the session storage 
-                sessionStorage.removeItem("token");
-                setAuthToken(null)
-                setCurrentUser(null)
-
-                toast.dismiss()
-                toast.success("Successfully Logged out")
-
-                navigate("/login")
-            }
-        })
+    // Remove the session storage 
+    {sessionStorage.removeItem("token");
+    setAuthToken(null)
+    setCurrentUser(null)
+                            }
 
     };
 
-
-// Fetch/ Get current user
-    useEffect(()=>{
-        fetchCurrentUser()
-    }, [])
+// // Fetch/ Get current user
+//     useEffect(()=>{
+//         fetchCurrentUser()
+//     }, [])
 
     const fetchCurrentUser = () => 
     {
-        console.log("Current user function ",authToken);
+        console.log("Current user function ", authToken);
         
         fetch("https://collaborative-blog-backend.onrender.com/current_user",{
             method:"GET",
@@ -128,18 +104,18 @@ export const UserProvider = ({ children }) =>
           }
         });
     };
-
+// "https://collaborative-blog-backend.onrender.com/users
     //Add User 
-    const addUser = (username, email, password) => 
+    const addUser = (name, email, password) => 
     {
         toast.loading("Registering ... ")
-        fetch("https://collaborative-blog-backend.onrender.com/users",{
+        fetch("https://collaborative-blog-backend.onrender.com/users", {
             method:"POST",
             headers: {
                 'Content-type': 'application/json',
               },
-            body: JSON.stringify({
-                username, email, password
+            body:JSON.stringify({
+                name, email, password
             })
         })
         .then((resp)=>resp.json())

@@ -10,8 +10,9 @@ import Layout from './Components/Layout'
 import Profile from './Components/Profile';
 import Login from './Components/Login';
 import Signup from './Components/Signup';
-import BlogProvider from './Context/BlogContext';
-import UserProvider from './Context/UserContext';
+import {BlogProvider} from './Context/BlogContext';
+import {UserProvider} from './Context/UserContext';
+import Footer from './Components/Footer';
 
 
 function App() {
@@ -38,8 +39,9 @@ function App() {
   return (
     <>
       <BrowserRouter>
-      <Navbar/>
-        <UserProvider>
+     
+        <UserProvider> 
+          <Navbar/>
           <BlogProvider>
             <Routes>
               <Route path="/" element={<Home />} />
@@ -51,7 +53,8 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
             </Routes>
-          </BlogProvider>
+          </BlogProvider> 
+          <Footer/>
         </UserProvider>
       </BrowserRouter>
     
@@ -70,4 +73,4 @@ function App() {
   )
 }
 
-export default App
+export default App;

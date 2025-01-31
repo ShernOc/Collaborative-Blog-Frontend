@@ -1,11 +1,11 @@
 import {useState , useContext } from 'react';
-import { useBlog } from "../Context/BlogContext";
+import { BlogContext} from "../Context/BlogContext";
 import { UserContext } from '../Context/UserContext';
 import { useNavigate } from 'react-router-dom';
 
 
 function AddBlog(){
-  const {addBlog} = useBlog();
+  const {addBlog} = useContext(BlogContext);
   const {current_user} = useContext(UserContext)
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");

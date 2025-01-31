@@ -1,10 +1,10 @@
 import { useEffect, useContext } from "react";
-import { useBlog } from "../Context/BlogContext";
+import { BlogContext} from "../Context/BlogContext";
 import { UserContext } from "../Context/UserContext";
 import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
-  const { blogs, fetchBlogs, deleteBlog } = useBlog();
+  const { blogs, fetchBlogs, deleteBlog } = useContext(BlogContext);
   const { current_user } = useContext(UserContext);
   const navigate = useNavigate();
 
@@ -14,7 +14,7 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <div className="max-w-5xl mx-auto p-6">
+    <div className=" bg-white max-w-5xl mx-auto p-6">
       <h1 className="text-3xl font-bold text-center mb-6">Blogs</h1>
 
       {/* Profile Section */}

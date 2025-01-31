@@ -3,9 +3,10 @@ import { toast } from "react-toastify";
 import {UserContext} from './UserContext'
 import { useNavigate } from "react-router-dom";
 
-const BlogContext = createContext();
 
-function BlogProvider({children}) {
+export const BlogContext = createContext();
+
+export const BlogProvider = ({children}) => {
 
     // initialize the state 
     const navigate = useNavigate();
@@ -16,22 +17,60 @@ function BlogProvider({children}) {
 
 // ================BLOGS==========================
 // Fetch/Get Blogs
-
-    useEffect(()=>{
-        // no token no blog 
-        if (!authToken) return;
-        fetch("https://collaborative-blog-backend.onrender.com/blogs",{
-                method:"GET",
-                headers: {
-                    'Content-type': 'application/json',
-                      Authorization: `Bearer ${authToken}`
-                }
-            })
-            .then((response) => response.json())
-            .then((response) => {
-                setBlogs(response)
-            });
-   }, [onChange,authToken])
+const fetchBlogs = async () => {
+    if (!authToken) return; // ✅ Ensure authToken exists before making a request
+  
+    try {
+      const response = await fetch("https://collaborative-blog-backend.onrender.com/blogs", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+  
+      const data = await response.json();
+      setBlogs(data); // ✅ Ensure setBlogs updates state correctly
+  
+    } catch (error) {
+      console.error("Error fetching blogs:", error);
+    }
+  };
+// const fetchBlogs = async (){ 
+//         if (!authToken) return;
+//         try{
+//              const response = await fetch("https://collaborative-blog-backend.onrender.com/blogs",{
+//                     method:"GET",
+//                     headers: {
+//                         'Content-type': 'application/json',
+//                           Authorization: `Bearer ${authToken}`
+//                     },
+//                 }) ;
+//                 .then((response) => response.json())
+//                 .then((response) => {
+//                     setBlogs(response)
+//                 });
+//        }, [onChange,authToken] }
+    
+//     useEffect(()=>{
+//         // no token no blog 
+//         if (!authToken) return;
+//         fetch("https://collaborative-blog-backend.onrender.com/blogs",{
+//                 method:"GET",
+//                 headers: {
+//                     'Content-type': 'application/json',
+//                       Authorization: `Bearer ${authToken}`
+//                 }
+//             })
+//             .then((response) => response.json())
+//             .then((response) => {
+//                 setBlogs(response)
+//             });
+//    }, [onChange,authToken])
  
     // Add Blog
     const addBlog= ( title, content, is_published) => 

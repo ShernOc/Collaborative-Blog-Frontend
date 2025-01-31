@@ -5,7 +5,7 @@ import { UserContext } from '../Context/UserContext';
 
 function Signup() {
   const {addUser} = useContext(UserContext)
-  const [username, setUsername] = useState('');
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
@@ -13,14 +13,24 @@ function Signup() {
   // ====> To Handle form submission
   const  handleSubmit = (e) => {
     e.preventDefault();
-    if(password != repeatPassword)
+
+    if(password !== repeatPassword)
     {
       alert("Password does not match")
+      return;
     }
+    
+    const userData = {
+    username: name,
+    email: email,
+    password: password,
 
-     addUser(username, email, password)
-     
+    }
+    
+    addUser(userData)
+    
   };
+
   return (
     <div className="flex justify-center items-center min-h-[80vh]">
       <h1 className='justify-items-center'>Signup Page</h1>
@@ -36,8 +46,8 @@ function Signup() {
           </label>
           <input
             type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
             className="block w-full h-11 px-5 py-2.5 bg-white leading-7 text-base font-normal shadow-xs text-gray-900 border border-gray-300 rounded-full placeholder-gray-400 focus:outline-none"
             placeholder="Enter Username"
             required
@@ -51,7 +61,7 @@ function Signup() {
           <input
             type="email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) =>setEmail(e.target.value)}
             className="block w-full h-11 px-5 py-2.5 leading-7 text-base font-normal shadow-xs text-gray-900 bg-transparent border border-gray-300 rounded-full placeholder-gray-400 focus:outline-none"
             placeholder="Enter Email"
             required
@@ -71,7 +81,6 @@ function Signup() {
             required
           />
         </div>
-
 
         <div className="relative mb-6">
           <label className="flex items-center mb-2 text-gray-600 text-sm font-medium w-full h-12 px-10">

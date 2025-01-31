@@ -1,10 +1,14 @@
 // import React from "react";
-import { Link } from "react-router-dom";
-// import {useAuth} from '..Context/UserContext'
+import { Link} from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "../Context/UserContext";
+
+
 
 function Navbar(){
-   const {user} = userAuth(); 
-
+  
+const {logout, current_user} = useContext(UserContext) 
+  
     return(
         <>
         <h1>Nav Bar</h1>
@@ -25,7 +29,7 @@ function Navbar(){
       </li>
       <li>
         <div id="protect routes ">
-          {user ? (
+          {current_user? (
             <>
           <li>
           <Link to ="/profile" className="block py-2 px-3 text-zinc-300 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-cyan-300  dark:border-gray-700">Profile</Link>
@@ -34,7 +38,7 @@ function Navbar(){
         <Link to ="/addblog" className="block py-2 px-3 text-zinc-300 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-cyan-300  dark:border-gray-700">Add a Blog</Link>
       </li>
       <li>
-        <Link to = "/"><button type="button" className=" block md:hover:bg-cyan-100 bg-emerald-300 focus:ring-4 focus:outline-none focus:ring-cyan-400 font-semibold rounded-3xl px-3 py-2 text-center ">Logout</button> </Link>
+        <Link onClick={()=>logout()} ><button type="button" className=" block md:hover:bg-cyan-100 bg-emerald-300 focus:ring-4 focus:outline-none focus:ring-cyan-400 font-semibold rounded-3xl px-3 py-2 text-center ">Logout</button> </Link>
       </li>
       </>):(
          <li>
