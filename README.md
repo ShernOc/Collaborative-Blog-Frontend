@@ -1,41 +1,41 @@
 
 # Collaborative Blog Platform : 
-- Is a blogging platform that allows User/Clients be able to share there thoughts: 
+- Collaborative Blog Platform is a blogging platform where users can share their thoughts, write blogs, comment on them, and collaborate with others on blog posts.
+The backend is built using Flask, while the frontend utilizes React and Vite for a smoother development experience. 
 
+# Features
+- User Registration and Login: Users can register and log in to their accounts.
+- Blog Management: Users can create, update, get, and delete blogs.
+- Commenting System: Users can comment on blogs.
+- Collaboration: Users can invite others to collaborate on their blog posts.
+- Publishing: Users can publish their blogs when they are ready.
+- Admin Functionality: Future plans for admin users to add or delete other users.
 
 # Models: 
-- User, Blog, Editors, Comments
+- Models
+- User: Contains user information (email, password, etc.).
+- Blog: Stores blog details, such as title, content, author, and publication status.
+- Editors: Associates users with blog posts, managing collaboration roles.
+- Comments: Stores user comments for each blog.
 
 # Concept: 
-- A Use can write a many blogs, and comments on the blog. 
-- Here the user can Create, Update, Get and Delete the Blogs and Comments. 
+- A Use can write a many blogs, and comments on others' blogs. 
+Users can create, Update, and delete their blogs. 
 
+# Future Changes: 
+Admin Role: Admin User can delete and add users too. 
+About page: Should be added 
 
-# Future: 
+Showing the Editors page 
 
-- Admin being the only one to add users/ and delete users
-- About page Progress: 
-- 
+# Requirements 
+- Backend- Packages: 
+ Flask, Flas-Migrate, Flask-SQLAlchemy, Cors, 
 
+ -Frontend: 
+ React + Vite: 
+ Stylling: Tailwind CSS 
 
+ # Database Input 
+ - Postman 
 
-# #Comment 
-# #hint: if not saved local storage: save the project in the local storage 
-# # Collaborate on Blog: As a user, I want to invite other users to collaborate on my blog post.
-# # A User can write a Comment of a Blog 
-# #Being able to 
-# # A User being able to publish the blog 
-
-# print("life is good")
-
-
-
-
-# React + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
