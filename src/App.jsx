@@ -17,24 +17,24 @@ import Footer from './Components/Footer';
 
 function App() {
 
-  const [error, setError] = useState(null);
-  // State to hold errors
-  const [data, setData] = useState(null)
-  // api variable
-  const apiUrl = 'http://127.0.0.1:5000/';
+  // const [error, setError] = useState(null);
+  // // State to hold errors
+  // const [data, setData] = useState(null)
+  // // api variable
+  // const apiUrl = 'http://127.0.0.1:5000/';
 
-  // Backend Communication with Cors2
-  useEffect(() => {
-    fetch(`${apiUrl}/`)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Network not responsive');
-        }
-        return response.json();
-      })
-      .then((json) => setData(json))
-      .catch((err) => setError(err.message));
-  }, [apiUrl]);
+  // // Backend Communication with Cors2
+  // useEffect(() => {
+  //   fetch(`${apiUrl}/`)
+  //     .then((response) => {
+  //       if (!response.ok) {
+  //         throw new Error('Network not responsive');
+  //       }
+  //       return response.json();
+  //     })
+  //     .then((json) => setData(json))
+  //     .catch((err) => setError(err.message));
+  // }, [apiUrl]);
 
   return (
     <>
@@ -57,7 +57,15 @@ function App() {
           <Footer/>
         </UserProvider>
       </BrowserRouter>
-    
+    {/* <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
     <br />
       <div>
         <h1>data is fetched</h1>
@@ -68,7 +76,7 @@ function App() {
             <p>Loading...
             Success the app is loading </p>
         )}
-          </div>
+          </div> */}
     </>
   )
 }

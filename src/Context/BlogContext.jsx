@@ -17,29 +17,7 @@ export const BlogProvider = ({children}) => {
 
 // ================BLOGS==========================
 // Fetch/Get Blogs
-const fetchBlogs = async () => {
-    if (!authToken) return; // ✅ Ensure authToken exists before making a request
-  
-    try {
-      const response = await fetch("https://collaborative-blog-backend.onrender.com/blogs", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${authToken}`,
-        },
-      });
-  
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-  
-      const data = await response.json();
-      setBlogs(data); // ✅ Ensure setBlogs updates state correctly
-  
-    } catch (error) {
-      console.error("Error fetching blogs:", error);
-    }
-  };
+
 // const fetchBlogs = async (){ 
 //         if (!authToken) return;
 //         try{
@@ -56,23 +34,24 @@ const fetchBlogs = async () => {
 //                 });
 //        }, [onChange,authToken] }
     
-//     useEffect(()=>{
-//         // no token no blog 
-//         if (!authToken) return;
-//         fetch("https://collaborative-blog-backend.onrender.com/blogs",{
-//                 method:"GET",
-//                 headers: {
-//                     'Content-type': 'application/json',
-//                       Authorization: `Bearer ${authToken}`
-//                 }
-//             })
-//             .then((response) => response.json())
-//             .then((response) => {
-//                 setBlogs(response)
-//             });
-//    }, [onChange,authToken])
- 
-    // Add Blog
+    useEffect(()=>{
+        // no token no blog 
+        if (!authToken) return;
+        fetch("https://collaborative-blog-backend.onrender.com/blogs",{
+                method:"GET",
+                headers: {
+                    'Content-type': 'application/json',
+                      Authorization: `Bearer ${authToken}`
+                }
+            })
+            .then((response) => response.json())
+            .then((response) => {
+                setBlogs(response)
+            });
+   }, [onChange,authToken])
+
+
+// Add Blog
     const addBlog= ( title, content, is_published) => 
     {
        
@@ -112,7 +91,7 @@ const fetchBlogs = async () => {
     const updateBlog = ( blog_id, title, content, is_published) => 
     {
         toast.loading("Updating blog ... ")
-        fetch(`https://collaborative-blog-backend.onrender.com/blogs/${blog_id}`,{
+        fetch(`https://collaborative-blog-backend.onrender.com/blogs/update/${blog_id}`,{
             method:"PATCH",
             headers: {
                 'Content-type': 'application/json',
@@ -123,7 +102,7 @@ const fetchBlogs = async () => {
         })
         .then((resp)=>resp.json())
         .then((response)=>{
-            console.log(response);
+        console.log(response);
             
             if(response.success){
                 toast.dismiss()
@@ -148,7 +127,7 @@ const fetchBlogs = async () => {
     const deleteBlog = (blog_Id) => 
     {
         toast.loading("Deleting Blog ... ")
-        fetch(`https://collaborative-blog-backend.onrender.com/blogs/${blog_Id}`,{
+        fetch(`https://collaborative-blog-backend.onrender.com/blogs/delete/${blog_Id}`,{
             method:"DELETE",
             headers: {
                 'Content-type': 'application/json',
@@ -180,18 +159,22 @@ const fetchBlogs = async () => {
 // ================================ Editors =====================================
 
 // fetch/ get editors
-   useEffect(()=>{
-        fetch("https://collaborative-blog-backend.onrender.com/editors", {
-                method:"GET",
-                headers: {
-                    'Content-type': 'application/json'
-                }
-            })
-            .then((response) => response.json())
-            .then((response) => {
+useEffect(()=>{
+    // no token no blog 
+    if (!authToken) return;
+    fetch("https://collaborative-blog-backend.onrender.com/editors",{
+            method:"GET",
+            headers: {
+                'Content-type': 'application/json',
+                  Authorization: `Bearer ${authToken}`
+            }
+        })
+        .then((response) => response.json())
+        .then((response) => {
             setEditors(response)
-            });
-   }, [])
+        });
+}, [onChange,authToken])
+
 
    //Add An editor 
    const addEditors = (blog_id, user_id, role) => 
@@ -201,6 +184,7 @@ const fetchBlogs = async () => {
             method:"POST",
             headers: {
                 'Content-type': 'application/json',
+                Authorization: `Bearer ${authToken}`
               },
             body: JSON.stringify({
                 blog_id, user_id, role
@@ -213,7 +197,7 @@ const fetchBlogs = async () => {
             if(response.msg){
                 toast.dismiss()
                 toast.success(response.success)
-                navigate("/login")
+                navigate("/dashboard")
             }
             else if(response.error){
                 toast.dismiss()
@@ -227,6 +211,119 @@ const fetchBlogs = async () => {
                
         }) 
     };
+
+//Add An editor 
+   const addEditors_id = (blog_id, user_id, role, editor_id) => 
+    {
+        toast.loading("Registering an Editor... ")
+        fetch(`https://collaborative-blog-backend.onrender.com/editors/${editor_id}`,{
+            method:"GET",
+            headers: {
+                'Content-type': 'application/json',
+                Authorization: `Bearer ${authToken}`
+              },
+            body: JSON.stringify({
+                blog_id, user_id, role
+            })
+        })
+        .then((resp)=>resp.json())
+        .then((response)=>{
+            console.log(response);
+            
+            if(response.msg){
+                toast.dismiss()
+                toast.success(response.success)
+                navigate("/dashboard")
+            }
+            else if(response.error){
+                toast.dismiss()
+                toast.error(response.error)
+
+            }
+            else{
+                toast.dismiss()
+                toast.error(response.error)
+  }
+               
+        }) 
+    };
+  
+// Update an Editor
+
+const updateEditor = (blog_id, user_id, role, editor_id) => 
+    {
+        toast.loading("Updating blog ... ")
+        fetch(`https://collaborative-blog-backend.onrender.com/blogs/editors/${editor_id}`,{
+            method:"PATCH",
+            headers: {
+                'Content-type': 'application/json',
+                Authorization: `Bearer ${authToken}`
+              },
+            body: JSON.stringify({
+                blog_id, user_id, role
+            })
+        })
+        .then((resp)=>resp.json())
+        .then((response)=>{
+        // setOnchange(!onChange)
+            console.log(response);
+            
+            if(response.success){
+                toast.dismiss()
+                toast.success("Editor updated Successfully")
+                navigate("/dashboard")
+            }
+            else if(response.error){
+                toast.dismiss()
+                toast.error(response.error || "Something went wrong!" )
+            }
+            else{
+                toast.dismiss()
+                toast.error(response.error || "Unexpected Error Occurred!")
+            }
+               
+        })
+       
+        console.log("Updating editor..");
+    }
+
+    // Delete Editor
+    const deleteEditor = (blog_Id, user_id) => 
+        {
+            toast.loading("Deleting Editor ... ")
+            fetch(`https://collaborative-blog-backend.onrender.com/blogs/delete/${blog_Id/user_id}`,{
+                method:"DELETE",
+                headers: {
+                    'Content-type': 'application/json',
+                    Authorization: `Bearer ${authToken}`
+     
+                  }
+            })
+            .then((resp)=>resp.json())
+            .then((response)=>{
+                
+                if(response.success){
+                    toast.dismiss()
+                    toast.success(response.success)
+                    setOnchange(!onChange)
+                }
+    
+                else if(response.error){
+                    toast.dismiss()
+                    toast.error(response.error || "Failed to delete editor!")
+                }
+                else{
+                    toast.dismiss()
+                    toast.error("Failed to delete")
+                } 
+                
+            })
+        }
+
+
+
+
+
 // pass the tags
 
    const data = {
@@ -235,7 +332,10 @@ const fetchBlogs = async () => {
     addBlog,
     updateBlog,
     deleteBlog,
-    addEditors
+    addEditors,
+    addEditors_id,
+    updateEditor,
+    deleteEditor
   }
 
   return (

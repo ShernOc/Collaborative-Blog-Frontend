@@ -1,6 +1,7 @@
 import  { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { UserContext } from '../Context/UserContext';
+import { useNavigate } from 'react-router-dom';
 
 
 function Signup() {
@@ -9,6 +10,7 @@ function Signup() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
+  const navigate = useNavigate();
 
   // ====> To Handle form submission
   const  handleSubmit = (e) => {
@@ -21,13 +23,13 @@ function Signup() {
     }
     
     const userData = {
-    username: name,
+    name: name,
     email: email,
     password: password,
 
-    }
+    };
     
-    addUser(userData)
+    addUser(userData, navigate)
     
   };
 

@@ -31,7 +31,7 @@ function Profile(){
     { 
     !current_user?("Not authorized")
     :(
-    <div className="max-w-4xl mx-auto p-6 bg-gray-600 shadow-lg rounded-lg mt-10">
+    <div className="max-w-4xl mx-auto p-6  shadow-lg rounded-lg mt-10 bg-amber-100">
       <h2 className="text-3xl font-semibold text-gray-700 mb-6">Profile Page</h2>
 
       <div className="space-y-4">

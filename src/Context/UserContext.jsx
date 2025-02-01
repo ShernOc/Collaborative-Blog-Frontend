@@ -1,6 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable react/prop-types */
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
@@ -37,7 +37,6 @@ export const UserProvider = ({ children }) =>
 
                 // set auth_token 
                 setAuthToken(response.access_token)
-
                 fetch("https://collaborative-blog-backend.onrender.com/current_user",{
                     method:"GET",
                     headers: {
@@ -54,7 +53,7 @@ export const UserProvider = ({ children }) =>
                 });
 
                 toast.success("Successfully Logged in")
-                navigate("/")
+                navigate("/profile")
             }
             else if(response.error){
                 toast.dismiss()
@@ -94,7 +93,7 @@ export const UserProvider = ({ children }) =>
             method:"GET",
             headers: {
                 'Content-type': 'application/json',
-                Authorization: `Bearer ${authToken}`
+                Authorization:`Bearer ${authToken}`
             }
         })
         .then((response) => response.json())
@@ -104,9 +103,11 @@ export const UserProvider = ({ children }) =>
           }
         });
     };
+
+
 // "https://collaborative-blog-backend.onrender.com/users
     //Add User 
-    const addUser = (name, email, password) => 
+    const addUser = (name, email, password, navigate) => 
     {
         toast.loading("Registering ... ")
         fetch("https://collaborative-blog-backend.onrender.com/users", {
@@ -123,18 +124,16 @@ export const UserProvider = ({ children }) =>
             console.log(response);
             
             if(response.msg){
-                toast.dismiss()
-                toast.success(response.success)
-                navigate("/login")
+                toast.dismiss();
+                toast.success(response.msg);
+                navigate("/dashboard")
             }
             else if(response.error){
-                toast.dismiss()
-                toast.error(response.error)
-
-            }
+                toast.dismiss();
+                toast.error(response.error)}
             else{
                 toast.dismiss()
-                toast.error(response.error)
+                toast.error(response.error ||"Error during registration." )
             }              
         })   
     };
@@ -154,7 +153,6 @@ export const UserProvider = ({ children }) =>
   const data = {
     authToken,
     login,
-    current_user,
     fetchCurrentUser,
     logout,
     addUser, 

@@ -28,10 +28,10 @@ function CommentProvider({ children }) {
             .then((response) => {
                 setComments(response)
             });
-   }, [onChange])
+   }, [onChange,authToken])
  
     // Add Comment
-    const addComment= ( blog_id, user_id, content) => 
+    const addComment= (blog_id, user_id, content) => 
     {
                 toast.loading("Adding a Comment ... ")
                 fetch("https://collaborative-blog-backend.onrender.com/comments",{
@@ -66,7 +66,7 @@ function CommentProvider({ children }) {
  }
     
 //  Update Comments 
-    const updateComment = (content, user_id, blog_id) => 
+    const updateComment = (content, user_id, blog_id, comment_id) => 
     {
         toast.loading("Updating blog ... ")
         fetch(`https://collaborative-blog-backend.onrender.com/blogs/${comment_id}`,{
@@ -102,7 +102,7 @@ function CommentProvider({ children }) {
     }
 
     //  Delete Comment
-    const deleteComment = (id) => 
+    const deleteComment = (comment_id) => 
     {
         toast.loading("Deleting Comment ... ")
         fetch(`https://collaborative-blog-backend.onrender.com/blogs/${comment_id}`,{
@@ -135,18 +135,18 @@ function CommentProvider({ children }) {
         })
     }
     
-    const data = {
-        comments,
-        addComment,
-        updateComment,
-        deleteComment,
-      }
-    
-    
-      return (
-      <CommentContext.Provider value={data}>
-          {children}
-      </CommentContext.Provider>)
+const data = {
+    comments,
+    addComment,
+    updateComment,
+    deleteComment,
     }
-    export default CommentProvider;
+
+
+    return (
+    <CommContext.Provider value={data}>
+        {children}
+    </CommContext.Provider>)
+}
+export default CommentProvider;
 
