@@ -1,8 +1,7 @@
 // Login.jsx
 import { useState, useContext } from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import { UserContext } from '../Context/UserContext';
-
 
 function Login() {
   const { login } = useContext(UserContext)
@@ -12,20 +11,22 @@ function Login() {
 // event handle_submit 
   function handleSubmit (e){
     e.preventDefault()
-   if (email != email, password != password) return alert("Password or email is wrong");
-   else login(email, password)
-    } 
-  
+   if (!email || !password) {
+    return alert("Password and email are required");
+  } 
+   login(email, password)
+  } 
+    
   return (
-    <div className="flex justify-center items-center min-h-[80vh]">
-      <form id='logins'
+    <div className="flex p-20 justify-center items-center min-h-[80vh] font-mono">
+      <form id='login'
         onSubmit={handleSubmit}
         className="flex flex-col items-center w-2xs space-y-8 bg-cyan-100 rounded-2xl h-min ">
 
-        <h3 className="text-2xl my-4  mb-2 font-bold font-mono">Login Page</h3>
+        <h3 className="text-2xl my-4 mb-2 font-bold font-mono">Login Page</h3>
 
         <div className='relative mb-6'>
-          <label className=" flex items-center mb-2 text-2xl font-medium font-mono">Email</label>
+          <label className=" flex items-center mb-2 text-2xl font-bold ">Email</label>
           <input
             type="email"
             value={email}
@@ -36,7 +37,7 @@ function Login() {
           />
         </div>
         <div className='relative mb-6'>
-          <label className="block text-2xl font-medium font-mono ">Password</label>
+          <label className="block text-2xl font-bold ">Password</label>
           <input
             type="password"
             value={password}
@@ -47,7 +48,7 @@ function Login() {
           />
         </div>
 
-        <button type="button" className=" h-12 bg-gray-500 hover:bg-cyan-800 transition-all duration-700 rounded-full shadow-xs text-white text-base font-semibold leading-6 mb-6 px-10"
+        <button type="submit" className=" h-12 bg-gray-500 hover:bg-cyan-800 transition-all duration-700 rounded-full shadow-xs text-black text-base font-semibold leading-6 mb-6 px-10"
         > Login </button>
         <div className='font-mono text-blue-950 font-semibold'>
           Not Signed? <Link to="/signup" d>Signup</Link>
@@ -58,3 +59,5 @@ function Login() {
 };
 
 export default Login;
+
+

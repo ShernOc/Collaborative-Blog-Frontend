@@ -3,9 +3,9 @@ import { toast } from "react-toastify";
 import { UserContext } from "./UserContext";
 import { useNavigate } from "react-router-dom";
 
-const CommContext = createContext();
+export const CommContext = createContext();
 
-function CommentProvider({ children }) {
+function CommProvider({ children }) {
 
     // initialize the state 
     const navigate = useNavigate()
@@ -141,12 +141,11 @@ const data = {
     updateComment,
     deleteComment,
     }
-
-
+    
     return (
     <CommContext.Provider value={data}>
         {children}
     </CommContext.Provider>)
 }
-export default CommentProvider;
+export default CommProvider;
 

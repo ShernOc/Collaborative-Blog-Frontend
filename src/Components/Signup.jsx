@@ -1,5 +1,5 @@
 import  { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link} from 'react-router-dom';
 import { UserContext } from '../Context/UserContext';
 // import { useNavigate } from 'react-router-dom';
 
@@ -13,45 +13,23 @@ function Signup() {
 
   function handleSubmit(e) {
     e.preventDefault()
-    if (password != repeatPassword) return alert("Password does not match");
-    else addUser(name,email, password);
+    if (password != repeatPassword) {
+      return alert("Password does not match");
+    }
+    addUser(name, email, password);
   }
 
 
-  // // ====> To Handle form submission
-  // const  handleSubmit = (e) => {
-  //   e.preventDefault();
-
-  //   if(password !== repeatPassword)
-  //   {
-  //     alert("Password does not match")
-  //     return;
-  //   }
-    
-  //   const userData = {
-  //   name: name,
-  //   email: email,
-  //   password: password,
-  //   // is_admin:is_admin
-
-  //   };
-    
-  //   addUser(userData, navigate)
-    
-  // };
-
-
   return (
-    <div className="flex justify-center items-center min-h-[80vh]">
-      <h1 className='justify-items-center'>Signup Page</h1>
-      <form id='signup'
+    <div className="flex justify-center items-center font-mono min-h-[80vh] p-20">
+     <form id='signup'
         onSubmit={handleSubmit}
-        className="w-[40%] bg-cyan-100 p-4 rounded-2xl h-min"
-      >
-        <h3 className="text-2xl my-4 font-bold font-mono">Signup</h3>
+        className="w-[40%] bg-cyan-100 p-4 rounded-2xl h-min">
+      
+        <h3 className="text-2xl my-4 font-bold font-mono underline ">Signup</h3>
 
         <div className="relative mb-6">
-          <label className="flex items-center mb-2  text-2xl font-medium">
+          <label className="flex items-center mb-2 text-2xl font-bold">
             Username
           </label>
           <input
@@ -63,36 +41,22 @@ function Signup() {
             required
           />
         </div>
-
         <div className="relative mb-6">
-          <label className="flex items-center mb-2 text-gray-600 text-sm font-medium">
+          <label className="flex items-center mb-2 text-2xl font-bold">
             Email
           </label>
           <input
             type="email"
             value={email}
             onChange={(e) =>setEmail(e.target.value)}
-            className="block w-full h-11 px-5 py-2.5 leading-7 text-base font-normal shadow-xs text-gray-900 bg-transparent border border-gray-300 rounded-full placeholder-gray-400 focus:outline-none"
+            className="block w-full h-12 px-10 py-2.5 bg-white leading-7 text-base font-normal shadow-xs text-gray-900  border border-gray-300 rounded-full placeholder-gray-400 focus:outline-none"
             placeholder="Enter Email"
             required
           />
         </div>
-
-        {/* <div className="relative mb-6">
-          <label className="flex items-center mb-2 text-gray-600 text-sm font-medium">
-            Admin
-          </label>
-          <input
-            type="checkbox"
-            value={is_admin}
-            onChange={(e) => setIsAdmin(e.target.value)}
-            className="block w-full h-12 px-10 py-2.5 bg-white leading-7 text-base font-normal shadow-xs text-gray-900  border border-gray-300 rounded-full placeholder-gray-400 focus:outline-none"
-            placeholder="is_admin"
-            required
-          />
-        </div> */}
+        {/* is_admin */}
         <div className="relative mb-6">
-          <label className="flex items-center mb-2 text-gray-600 text-sm font-medium">
+          <label className="flex items-center mb-2 text-2xl font-bold">
             Password
           </label>
           <input
@@ -106,7 +70,7 @@ function Signup() {
         </div>
 
         <div className="relative mb-6">
-          <label className="flex items-center mb-2 text-gray-600 text-sm font-medium w-full h-12 px-10">
+          <label className="flex items-center mb-2 text-gray-600 text-sm font-semibold w-full ">
             Repeat Password
           </label>
           <input
@@ -121,13 +85,13 @@ function Signup() {
 
         <button
           type="submit"
-          className=" h-12 bg-gray-500 hover:bg-cyan-800 transition-all duration-700 rounded-full shadow-xs text-white text-base font-semibold leading-6 mb-6 px-10"
+          className=" h-12 bg-gray-500 hover:bg-cyan-800 transition-all duration-700 rounded-full shadow-xs text-black text-base font-semibold leading-6 mb-6 px-10 "
         >
           Sign Up
         </button>
 
         <div>
-          Already have an account? <Link to="/login" className="text-blue-950 font-semibold">Login</Link>
+          Already have an account? <Link to="/login" className="text-blue-950 font-bold">Login</Link>
         </div>
       </form>
     </div>
