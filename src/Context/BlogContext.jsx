@@ -40,7 +40,7 @@ export const BlogProvider = ({children}) => {
         fetch("https://collaborative-blog-backend.onrender.com/blogs",{
                 method:"GET",
                 headers: {
-                    'Content-type': 'application/json',
+                    'Content-Type':'application/json',
                       Authorization: `Bearer ${authToken}`
                 }
             })
@@ -59,7 +59,7 @@ export const BlogProvider = ({children}) => {
         fetch("https://collaborative-blog-backend.onrender.com/blogs",{
             method:"POST",
             headers: {
-            'Content-type': 'application/json',
+            'Content-Type': 'application/json',
             Authorization: `Bearer ${authToken}`
             },
             body: JSON.stringify({
@@ -94,7 +94,7 @@ export const BlogProvider = ({children}) => {
         fetch(`https://collaborative-blog-backend.onrender.com/blogs/update/${blog_id}`,{
             method:"PATCH",
             headers: {
-                'Content-type': 'application/json',
+                'Content-Type': 'application/json',
               },
             body: JSON.stringify({
                 title, content, is_published
@@ -130,7 +130,7 @@ export const BlogProvider = ({children}) => {
         fetch(`https://collaborative-blog-backend.onrender.com/blogs/delete/${blog_Id}`,{
             method:"DELETE",
             headers: {
-                'Content-type': 'application/json',
+                'Content-Type': 'application/json',
                 Authorization: `Bearer ${authToken}`
  
               }
@@ -165,7 +165,7 @@ useEffect(()=>{
     fetch("https://collaborative-blog-backend.onrender.com/editors",{
             method:"GET",
             headers: {
-                'Content-type': 'application/json',
+                'Content-Type': 'application/json',
                   Authorization: `Bearer ${authToken}`
             }
         })
@@ -183,7 +183,7 @@ useEffect(()=>{
         fetch("https://collaborative-blog-backend.onrender.com/editors",{
             method:"POST",
             headers: {
-                'Content-type': 'application/json',
+                'Content-Type': 'application/json',
                 Authorization: `Bearer ${authToken}`
               },
             body: JSON.stringify({

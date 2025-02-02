@@ -11,7 +11,7 @@ export const UserProvider = ({ children }) =>
     const navigate = useNavigate();
     const [authToken , setAuthToken] = useState( ()=>sessionStorage.getItem("token"));
     const [current_user, setCurrentUser] = useState(null);
-    console.log("Current user ",current_user)
+    console.log("Current user",current_user)
 
 // Functions Fetching 
 // LOGIN 
@@ -22,7 +22,7 @@ export const UserProvider = ({ children }) =>
         fetch("https://collaborative-blog-backend.onrender.com/login",{
             method:"POST",
             headers: {
-                'Content-type': 'application/json',
+                'Content-Type':'application/json'
               },
             body: JSON.stringify({
                 email, password
@@ -40,13 +40,13 @@ export const UserProvider = ({ children }) =>
                 fetch("https://collaborative-blog-backend.onrender.com/current_user",{
                     method:"GET",
                     headers: {
-                        'Content-type': 'application/json',
+                        'Content-Type': 'application/json',
                         Authorization: `Bearer ${response.access_token}`
                     }
                 })
                 .then((response) => response.json())
                 .then((response) => {
-                  if(response.email){
+                  if(response){
                     // saved as current user
                           setCurrentUser(response)
                         }
@@ -92,13 +92,13 @@ export const UserProvider = ({ children }) =>
         fetch("https://collaborative-blog-backend.onrender.com/current_user",{
             method:"GET",
             headers: {
-                'Content-type': 'application/json',
+                'Content-Type':'application/json',
                 Authorization:`Bearer ${authToken}`
             }
         })
         .then((response) => response.json())
         .then((response) => {
-          if(response.email){
+          if(response){
            setCurrentUser(response)
           }
         });
@@ -107,26 +107,26 @@ export const UserProvider = ({ children }) =>
 
 // "https://collaborative-blog-backend.onrender.com/users
     //Add User 
-    const addUser = (name, email, password, navigate) => 
+    const addUser = (name, email, password)=> 
     {
+
         toast.loading("Registering ... ")
         fetch("https://collaborative-blog-backend.onrender.com/users", {
             method:"POST",
             headers: {
-                'Content-type': 'application/json',
+                "Accept":"application/json",
+                'Content-Type':'application/json'
               },
-            body:JSON.stringify({
-                name, email, password
-            })
+            body:JSON.stringify({name,email,password})
         })
         .then((resp)=>resp.json())
         .then((response)=>{
-            console.log(response);
+            console.log("Response from backend:",response);
             
-            if(response.msg){
+            if(response.success){
                 toast.dismiss();
-                toast.success(response.msg);
-                navigate("/dashboard")
+                toast.success(response.success);
+                navigate("/login")
             }
             else if(response.error){
                 toast.dismiss();
@@ -136,6 +136,7 @@ export const UserProvider = ({ children }) =>
                 toast.error(response.error ||"Error during registration." )
             }              
         })   
+        console.log("user", name);
     };
 
     // Update A User 

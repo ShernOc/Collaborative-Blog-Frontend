@@ -1,31 +1,21 @@
 // Login.jsx
 import { useState, useContext } from 'react';
-// import { Navigate, useNavigate } from 'react-router';
 import { Link } from 'react-router';
 import { UserContext } from '../Context/UserContext';
-// import { useAuth } from "./Signin";
-// // import { Navigate } from 'react-router';
 
-//Login
 
 function Login() {
   const { login } = useContext(UserContext)
-
-  // console.log("current user", Current_user)
-
-  // const { login } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  // event onSubmit 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    login(email, password)
-    if (email != email, password != password) {
-      alert("Password or email is wrong")
-    } ("/login")
-  };
-
+// event handle_submit 
+  function handleSubmit (e){
+    e.preventDefault()
+   if (email != email, password != password) return alert("Password or email is wrong");
+   else login(email, password)
+    } 
+  
   return (
     <div className="flex justify-center items-center min-h-[80vh]">
       <form id='logins'
@@ -35,7 +25,7 @@ function Login() {
         <h3 className="text-2xl my-4  mb-2 font-bold font-mono">Login Page</h3>
 
         <div className='relative mb-6'>
-          <label className=" flex items-center mb-2 text-2xl font-medium">Email</label>
+          <label className=" flex items-center mb-2 text-2xl font-medium font-mono">Email</label>
           <input
             type="email"
             value={email}
@@ -46,7 +36,7 @@ function Login() {
           />
         </div>
         <div className='relative mb-6'>
-          <label className="block text-2xl font-medium">Password</label>
+          <label className="block text-2xl font-medium font-mono ">Password</label>
           <input
             type="password"
             value={password}
@@ -59,10 +49,9 @@ function Login() {
 
         <button type="button" className=" h-12 bg-gray-500 hover:bg-cyan-800 transition-all duration-700 rounded-full shadow-xs text-white text-base font-semibold leading-6 mb-6 px-10"
         > Login </button>
-        <div>
-          Not Signed? <Link to="/signup" className='text-blue-950 font-semibold'>Signup</Link>
+        <div className='font-mono text-blue-950 font-semibold'>
+          Not Signed? <Link to="/signup" d>Signup</Link>
         </div>
-
       </form>
     </div>
   );

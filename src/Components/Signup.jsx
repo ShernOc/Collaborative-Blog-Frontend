@@ -1,37 +1,45 @@
 import  { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { UserContext } from '../Context/UserContext';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 
 function Signup() {
-  const {addUser} = useContext(UserContext)
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [repeatPassword, setRepeatPassword] = useState('');
-  const navigate = useNavigate();
+  const { addUser } = useContext(UserContext);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [repeatPassword, setRepeatPassword] = useState("");
 
-  // ====> To Handle form submission
-  const  handleSubmit = (e) => {
-    e.preventDefault();
+  function handleSubmit(e) {
+    e.preventDefault()
+    if (password != repeatPassword) return alert("Password does not match");
+    else addUser(name,email, password);
+  }
 
-    if(password !== repeatPassword)
-    {
-      alert("Password does not match")
-      return;
-    }
-    
-    const userData = {
-    name: name,
-    email: email,
-    password: password,
 
-    };
+  // // ====> To Handle form submission
+  // const  handleSubmit = (e) => {
+  //   e.preventDefault();
+
+  //   if(password !== repeatPassword)
+  //   {
+  //     alert("Password does not match")
+  //     return;
+  //   }
     
-    addUser(userData, navigate)
+  //   const userData = {
+  //   name: name,
+  //   email: email,
+  //   password: password,
+  //   // is_admin:is_admin
+
+  //   };
     
-  };
+  //   addUser(userData, navigate)
+    
+  // };
+
 
   return (
     <div className="flex justify-center items-center min-h-[80vh]">
@@ -70,6 +78,19 @@ function Signup() {
           />
         </div>
 
+        {/* <div className="relative mb-6">
+          <label className="flex items-center mb-2 text-gray-600 text-sm font-medium">
+            Admin
+          </label>
+          <input
+            type="checkbox"
+            value={is_admin}
+            onChange={(e) => setIsAdmin(e.target.value)}
+            className="block w-full h-12 px-10 py-2.5 bg-white leading-7 text-base font-normal shadow-xs text-gray-900  border border-gray-300 rounded-full placeholder-gray-400 focus:outline-none"
+            placeholder="is_admin"
+            required
+          />
+        </div> */}
         <div className="relative mb-6">
           <label className="flex items-center mb-2 text-gray-600 text-sm font-medium">
             Password
