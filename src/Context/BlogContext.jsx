@@ -37,7 +37,7 @@ export const BlogProvider = ({ children }) => {
     useEffect(() => {
         // no token no blog 
         if (!authToken) return;
-        fetch("http://127.0.0.1:5000/blogs", {
+        fetch("https://collaborative-blog-backend.onrender.com/blogs", {
             method: "GET",
             mode: "cors",
             headers: {
@@ -56,7 +56,7 @@ export const BlogProvider = ({ children }) => {
     const addBlog = (title, content, is_published) => {
 
         toast.loading("Adding a blog ... ")
-        fetch("http://127.0.0.1:5000/blogs", {
+        fetch("https://collaborative-blog-backend.onrender.com/blogs", {
             method: "POST",
             mode:"cors",
             headers: {
@@ -92,7 +92,7 @@ export const BlogProvider = ({ children }) => {
     //Update Blog
     const updateBlog = (blog_id, title, content, is_published) => {
         toast.loading("Updating blog ... ")
-        fetch(`http://127.0.0.1:5000/blogs/update/${blog_id}`, {
+        fetch(`https://collaborative-blog-backend.onrender.com/blogs/update/${blog_id}`, {
             method: "PATCH",
             mode: "cors",
             headers: {
@@ -129,7 +129,7 @@ export const BlogProvider = ({ children }) => {
     //  Delete BLog
     const deleteBlog = (blog_Id) => {
         toast.loading("Deleting Blog ... ")
-        fetch(`http://127.0.0.1:5000/blogs/delete/${blog_Id}`, {
+        fetch(`https://collaborative-blog-backend.onrender.com/blogs/delete/${blog_Id}`, {
             method: "DELETE",
             mode: "cors",
             headers: {
@@ -165,7 +165,7 @@ export const BlogProvider = ({ children }) => {
     useEffect(() => {
         // no token no blog 
         if (!authToken) return;
-        fetch("http://127.0.0.1:5000/editors", {
+        fetch("https://collaborative-blog-backend.onrender.com/editors", {
             method: "GET",
             mode:"cors",
             headers: {
@@ -183,7 +183,7 @@ export const BlogProvider = ({ children }) => {
     //Add An editor 
     const addEditors = (blog_id, user_id, role) => {
         toast.loading("Registering an Editor... ")
-        fetch("http://127.0.0.1:5000/editors", {
+        fetch("https://collaborative-blog-backend.onrender.com/editors", {
             method: "POST",
             mode:"cors",
             headers: {
@@ -219,7 +219,7 @@ export const BlogProvider = ({ children }) => {
     //Add An editor 
     const addEditors_id = (blog_id, user_id, role, editor_id) => {
         toast.loading("Registering an Editor... ")
-        fetch(`http://127.0.0.1:5000/editors/${editor_id}`, {
+        fetch(`https://collaborative-blog-backend.onrender.com/editors/${editor_id}`, {
             method: "GET",
             mode:"cors",
             headers: {
@@ -256,7 +256,7 @@ export const BlogProvider = ({ children }) => {
 
     const updateEditor = (blog_id, user_id, role, editor_id) => {
         toast.loading("Updating blog ... ")
-        fetch(`http://127.0.0.1:5000/blogs/editors/${editor_id}`, {
+        fetch(`https://collaborative-blog-backend.onrender.com/blogs/editors/${editor_id}`, {
             method: "PATCH",
             mode:"cors",
             headers: {
@@ -294,7 +294,7 @@ export const BlogProvider = ({ children }) => {
     // Delete Editor
     const deleteEditor = (blog_Id, user_id) => {
         toast.loading("Deleting Editor ... ")
-        fetch(`http://127.0.0.1:5000/blogs/delete/${blog_Id / user_id}`, {
+        fetch(`https://collaborative-blog-backend.onrender.com/blogs/delete/${blog_Id / user_id}`, {
             method: "DELETE",
             mode:"cors",
             headers: {

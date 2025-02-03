@@ -18,7 +18,7 @@ export const CommProvider=({children}) =>{
     // Fetch/Get Comments
     useEffect(() => {
         if (!authToken) return; 
-        fetch("http://127.0.0.1:5000/comments", {
+        fetch("https://collaborative-blog-backend.onrender.com/comments", {
             method: "GET",
             mode:"cors",
             headers: {
@@ -37,7 +37,7 @@ export const CommProvider=({children}) =>{
     // Add Comment
     const addComment = (blog_id, user_id, content) => {
         toast.loading("Adding a Comment ... ")
-        fetch("http://127.0.0.1:5000/comments", {
+        fetch("https://collaborative-blog-backend.onrender.com/comments", {
             method: "POST",
             mode: "cors",
             headers: {
@@ -72,7 +72,7 @@ export const CommProvider=({children}) =>{
     //  Update Comments 
     const updateComment = (content, user_id, blog_id, comment_id) => {
         toast.loading("Updating blog ... ")
-        fetch(`http://127.0.0.1:5000/blogs/${comment_id}`, {
+        fetch(`https://collaborative-blog-backend.onrender.com/${comment_id}`, {
             method: "PATCH",
             mode:"cors",
             headers: {
@@ -108,7 +108,7 @@ export const CommProvider=({children}) =>{
     //  Delete Comment
     const deleteComment = (comment_id) => {
         toast.loading("Deleting Comment ... ")
-        fetch(`http://127.0.0.1:5000/blogs/${comment_id}`, {
+        fetch(`https://collaborative-blog-backend.onrender.com/blogs/${comment_id}`, {
             method: "DELETE",
             mode:"cors",
             headers: {

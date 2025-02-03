@@ -23,7 +23,7 @@ export const UserProvider = ({ children }) => {
     // loads for the data 
     {
         toast.loading("Logging you in ... ")
-        fetch("http://127.0.0.1:5000/login", {
+        fetch("https://collaborative-blog-backend.onrender.com/login", {
             method: "POST",
             mode:"cors",
             headers: {
@@ -44,7 +44,7 @@ export const UserProvider = ({ children }) => {
                     // set auth_token 
                     setAuthToken(response.access_token)
                     setTimeout(() => {
-                        fetch("http://127.0.0.1:5000/current_user", {
+                        fetch("https://collaborative-blog-backend.onrender.com/current_user", {
                             method: "GET",
                             mode:"cors",
                             headers: {
@@ -81,7 +81,7 @@ export const UserProvider = ({ children }) => {
     const logout = () => 
         {
             toast.loading("Logging out ... ")
-            fetch("http://127.0.0.1:5000/logout",{
+            fetch("https://collaborative-blog-backend.onrender.com/logout",{
                 method:"DELETE",
                 mode:"cors",
                 headers: {
@@ -116,7 +116,7 @@ export const UserProvider = ({ children }) => {
     const fetchCurrentUser = () => {
         // console.log("Current user function ", authToken);
 
-        fetch("http://127.0.0.1:5000/current_user", {
+        fetch("https://collaborative-blog-backend.onrender.com/current_user", {
             method: "GET",
             mode:"cors",
             headers: {
@@ -138,7 +138,7 @@ export const UserProvider = ({ children }) => {
     const addUser = (name, email, password) => {
 
         toast.loading("Registering ... ")
-        fetch("http://127.0.0.1:5000/users", {
+        fetch("https://collaborative-blog-backend.onrender.com/users", {
             method: "POST",
             mode:"cors",
             headers: {
@@ -175,7 +175,7 @@ export const UserProvider = ({ children }) => {
     const updateUser = (name, email, password) => {
 
         toast.loading("Updating ... ")
-        fetch("http://127.0.0.1:5000/users/update", {
+        fetch("https://collaborative-blog-backend.onrender.com/users/update", {
             method: "PATCH",
             mode:"cors",
             headers: {
@@ -211,7 +211,7 @@ export const UserProvider = ({ children }) => {
     //  Delete User
     const deleteUser = (user_id) => {
         toast.loading("Deleting User ... ")
-        fetch(`http://127.0.0.1:5000/blogs/${user_id}/delete`, {
+        fetch(`https://collaborative-blog-backend.onrender.com/blogs/${user_id}/delete`, {
             method: "DELETE",
             mode:"cors",
             headers: {
