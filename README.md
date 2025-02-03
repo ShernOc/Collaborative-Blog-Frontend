@@ -23,19 +23,18 @@ The backend is built using Flask, while the frontend utilizes React and Vite for
 Users can create, Update, and delete their blogs. 
 
 # Future Changes: 
-Admin Role: Admin User can delete and add users too. 
-About page: Should be added 
+-- Admin Functionality: Future plans for admin users to add or delete other users.
 
 Showing the Editors page 
 
 # Requirements 
 - Backend- Packages: 
- Flask, Flas-Migrate, Flask-SQLAlchemy, Cors, 
+ Flask, Flask-Migrate, Flask-SQLAlchemy, Cors, 
 
  -Frontend: 
  React + Vite: 
  Stylling: Tailwind CSS 
 
- # Database Input 
+ # Database Testing 
  - Postman 
 

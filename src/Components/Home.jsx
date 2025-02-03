@@ -9,7 +9,6 @@ function Home() {
       <div className=" min-h-screen flex items-center justify-center p-6 ">
 
       
-      
         <div className=" rounded-4xl bg-gray-500 flex flex-wrap justify-center ">
 
           <h1 className="text-4xl font-bold text-black mb-4">
