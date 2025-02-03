@@ -48,7 +48,7 @@ export const BlogProvider = ({ children }) => {
             .then((response) => {
                 setBlogs(response)
             });
-    }, [onChange, authToken])
+    }, [onChange])
 
 
     // Add Blog
@@ -59,8 +59,9 @@ export const BlogProvider = ({ children }) => {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
-                Authorization: `Bearer ${sessionStorage.getItem(authToken)}`
+                Authorization: `Bearer ${authToken}`
             },
+
             body: JSON.stringify({
                 title, content, is_published
             })
@@ -68,6 +69,7 @@ export const BlogProvider = ({ children }) => {
             .then((resp) => resp.json())
             .then((response) => {
                 console.log(response);
+
                 if (response.success) {
                     toast.dismiss()
                     toast.success(response.success);
@@ -75,13 +77,12 @@ export const BlogProvider = ({ children }) => {
                 }
                 else if (response.error) {
                     toast.dismiss()
-                    toast.error(response.error)
+                    toast.error(response.error, "Error adding a blog")
 
                 }
                 else {
                     toast.dismiss()
                     toast.error("Failed to add a blog")
-
                 }
             })
     }
@@ -93,7 +94,7 @@ export const BlogProvider = ({ children }) => {
             method: "PATCH",
             headers: {
                 'Content-Type': 'application/json',
-                Authorization: `Bearer ${authToken}`
+                Authorization:`Bearer ${authToken}`
             },
             body: JSON.stringify({
                 title, content, is_published
@@ -138,7 +139,7 @@ export const BlogProvider = ({ children }) => {
 
                 if (response.success) {
                     toast.dismiss()
-                    toast.success(response.success)
+                    toast.success(response.success || "Blog Deleted successfully")
                     setOnchange(!onChange)
                 }
 

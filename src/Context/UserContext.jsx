@@ -13,8 +13,10 @@ export const UserProvider = ({ children }) => {
 
     console.log("Current user", current_user)
 
+// "https://collaborative-blog-backend.onrender.com/users
     // Functions Fetching 
-    // LOGIN 
+    
+// LOGIN 
     const login = (email, password) =>
     // loads for the data 
     {
@@ -33,7 +35,7 @@ export const UserProvider = ({ children }) => {
                 if (response.access_token) {
                     toast.dismiss()
                     // set the session storage/ save it the token 
-                    sessionStorage.setItem("token", response.access_token);
+                    useSesessionStorage.setItem("token", response.access_token);
 
                     // set auth_token 
                     setAuthToken(response.access_token)
@@ -42,7 +44,7 @@ export const UserProvider = ({ children }) => {
                             method: "GET",
                             headers: {
                                 'Content-Type': 'application/json',
-                                Authorization: `Bearer ${response.access_token}`
+                                Authorization:`Bearer ${response.access_token}`
                             }
                         })
                             .then((response) => response.json())
@@ -71,20 +73,39 @@ export const UserProvider = ({ children }) => {
     };
 
     //Logout  
-    const logout = () => {
-        // Remove the session storage 
+    const logout = () => 
         {
-            sessionStorage.removeItem("token");
-            setAuthToken(null)
-            setCurrentUser(null)
-        }
-
-    };
+            toast.loading("Logging out ... ")
+            fetch("http://127.0.0.1:5000/logout",{
+                method:"DELETE",
+                headers: {
+                    'Content-type': 'application/json',
+                    Authorization: `Bearer ${authToken}`
+                  },
+           
+            })
+            .then((resp)=>resp.json())
+            .then((response)=>{
+               console.log(response);
+               
+                if(response.success)
+                {
+                    useSesessionStorage.removeItem("token");
+                    setAuthToken(null)
+                    setCurrentUser(null)
+    
+                    toast.dismiss()
+                    toast.success("Successfully Logged out")
+                    navigate("/login")
+                }
+            })
+        };
+    
 
     // Fetch/ Get current user
     useEffect(() => {
         if (authToken) fetchCurrentUser();
-    }, [authToken])
+    }, [])
 
     const fetchCurrentUser = () => {
         console.log("Current user function ", authToken);
@@ -98,14 +119,13 @@ export const UserProvider = ({ children }) => {
         })
             .then((response) => response.json())
             .then((response) => {
-                if (response) {
+                if (response.email) {
                     setCurrentUser(response)
                 }
             });
     };
 
-    // "https://collaborative-blog-backend.onrender.com/users
-
+    
 
     //Add User 
     const addUser = (name, email, password) => {
@@ -128,6 +148,7 @@ export const UserProvider = ({ children }) => {
                     toast.success(response.success);
                     navigate("/login")
                 }
+                // if there is an error, 
                 else if (response.error) {
                     toast.dismiss();
                     toast.error(response.error)
@@ -139,6 +160,7 @@ export const UserProvider = ({ children }) => {
             })
         console.log("user", name);
     };
+
 
     // Update A User
 
@@ -166,7 +188,7 @@ export const UserProvider = ({ children }) => {
                 }
                 else if (response.error) {
                     toast.dismiss();
-                    toast.error(response.error)
+                    toast.error(response.error, "Failed to update your profile")
                 }
                 else {
                     toast.dismiss()
@@ -175,6 +197,7 @@ export const UserProvider = ({ children }) => {
             })
         console.log("user", name);
     };
+
 
     //  Delete User
     const deleteUser = (user_id) => {
@@ -227,4 +250,3 @@ export const UserProvider = ({ children }) => {
         </UserContext.Provider>
     )
 };
-
