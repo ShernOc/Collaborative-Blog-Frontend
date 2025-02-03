@@ -12,6 +12,7 @@ import Login from './Components/Login';
 import Signup from './Components/Signup';
 import {BlogProvider} from './Context/BlogContext';
 import {UserProvider} from './Context/UserContext';
+import {CommProvider} from './Context/CommContext'
 import Footer from './Components/Footer';
 import BlogCard from './Components/BlogCard';
 // not true 
@@ -27,6 +28,7 @@ function App() {
         <UserProvider> 
           <Navbar/>
           <BlogProvider>
+          <CommProvider>
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/addblog" element={<AddBlog/>} />
@@ -40,6 +42,7 @@ function App() {
               <Route path="/blogs" element={<Blog />} />
               <Route path="/data" element={<Data />} />
             </Routes>
+            </CommProvider>
           </BlogProvider> 
           <Footer/>
         </UserProvider>

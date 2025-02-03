@@ -1,13 +1,15 @@
 import { createContext, useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import useSesessionStorage from 'use-session-storage-state';
 
 export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
     const navigate = useNavigate()
-    const [authToken, setAuthToken] = useState(() => sessionStorage.getItem("token"))
-    const [current_user, setCurrentUser] = useState(null)
+    const [authToken, setAuthToken] = useState(() => useSesessionStorage.getItem("token"))
+    const [current_user, setCurrentUser] = useState('');
+    const [onChange, setOnchange] = useState(null)
 
     console.log("Current user", current_user)
 
@@ -20,7 +22,7 @@ export const UserProvider = ({ children }) => {
         fetch("http://127.0.0.1:5000/login", {
             method: "POST",
             headers: {
-                'Content-Type':'application/json'
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify({
                 email, password
@@ -35,27 +37,29 @@ export const UserProvider = ({ children }) => {
 
                     // set auth_token 
                     setAuthToken(response.access_token)
-                    fetch("https://http://127.0.0.1:5000/current_user", {
-                        method: "GET",
-                        headers: {
-                            'Content-Type': 'application/json',
-                            Authorization: `Bearer ${response.access_token}`
-                        }
-                    })
-                        .then((response) => response.json())
-                        .then((response) => {
-                            if (response) {
-                                // saved as current user
-                                setCurrentUser(response)
+                    setTimeout(() => {
+                        fetch("http://127.0.0.1:5000/current_user", {
+                            method: "GET",
+                            headers: {
+                                'Content-Type': 'application/json',
+                                Authorization: `Bearer ${response.access_token}`
                             }
-                        });
+                        })
+                            .then((response) => response.json())
+                            .then((response) => {
+                                if (response) {
+                                    // saved as current user
+                                    setCurrentUser(response)
+                                }
+                            });
+                    }, 500); // set session storage 
 
                     toast.success("Successfully Logged in")
                     navigate("/dashboard")
                 }
                 else if (response.error) {
                     toast.dismiss()
-                    toast.error(response.error)
+                    toast.error(response.error || "Failed to login ")
 
                 }
                 else {
@@ -63,7 +67,6 @@ export const UserProvider = ({ children }) => {
                     toast.error("Failed to login")
 
                 }
-
             })
     };
 
@@ -80,8 +83,8 @@ export const UserProvider = ({ children }) => {
 
     // Fetch/ Get current user
     useEffect(() => {
-        fetchCurrentUser()
-    }, [])
+        if (authToken) fetchCurrentUser();
+    }, [authToken])
 
     const fetchCurrentUser = () => {
         console.log("Current user function ", authToken);
@@ -101,13 +104,14 @@ export const UserProvider = ({ children }) => {
             });
     };
 
-
     // "https://collaborative-blog-backend.onrender.com/users
+
+
     //Add User 
     const addUser = (name, email, password) => {
 
         toast.loading("Registering ... ")
-        fetch("https://collaborative-blog-backend.onrender.com/users", {
+        fetch("http://127.0.0.1:5000/users", {
             method: "POST",
             headers: {
                 "Accept": "application/json",
@@ -136,14 +140,75 @@ export const UserProvider = ({ children }) => {
         console.log("user", name);
     };
 
-    // Update A User 
-    const updateUser = () => {
-        console.log("Updating user:");
+    // Update A User
+
+    const updateUser = (name, email, password) => {
+
+        toast.loading("Updating ... ")
+        fetch("http://127.0.0.1:5000/users/update", {
+            method: "PATCH",
+            headers: {
+
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${authToken}`
+
+            },
+            body: JSON.stringify({ name, email, password })
+        })
+            .then((resp) => resp.json())
+            .then((response) => {
+                console.log("Response from backend:", response);
+
+                if (response.success) {
+                    toast.dismiss();
+                    toast.success(response.success);
+                    navigate("/profile")
+                }
+                else if (response.error) {
+                    toast.dismiss();
+                    toast.error(response.error)
+                }
+                else {
+                    toast.dismiss()
+                    toast.error(response.error || "Error during registration.")
+                }
+            })
+        console.log("user", name);
     };
 
-    const deleteUser = async (userId) => {
-        console.log("Deleting user:", userId);
+    //  Delete User
+    const deleteUser = (user_id) => {
+        toast.loading("Deleting User ... ")
+        fetch(`http://127.0.0.1:5000/blogs/${user_id}/delete`, {
+            method: "DELETE",
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${authToken}`
+
+            }
+        })
+            .then((resp) => resp.json())
+            .then((response) => {
+
+                if (response.success) {
+                    toast.dismiss()
+                    toast.success(response.success)
+                    setOnchange(!onChange)
+                }
+
+                else if (response.error) {
+                    toast.dismiss()
+                    toast.error(response.error || "Failed to delete blog!")
+                }
+                else {
+                    toast.dismiss()
+                    toast.error("Failed to delete")
+                }
+
+            })
+        console.log("Deleting user:", user_id);
     };
+
 
     // call the functions 
     const data = {

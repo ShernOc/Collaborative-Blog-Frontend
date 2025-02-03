@@ -1,8 +1,7 @@
-import  { useContext, useState } from 'react';
-import { Link} from 'react-router-dom';
+import { useContext, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { UserContext } from '../Context/UserContext';
 // import { useNavigate } from 'react-router-dom';
-
 
 function Signup() {
   const { addUser } = useContext(UserContext);
@@ -19,13 +18,12 @@ function Signup() {
     addUser(name, email, password);
   }
 
-
   return (
     <div className="flex justify-center items-center font-mono min-h-[80vh] p-20">
-     <form id='signup'
+      <form id='signup'
         onSubmit={handleSubmit}
         className="w-[40%] bg-cyan-100 p-4 rounded-2xl h-min">
-      
+
         <h3 className="text-2xl my-4 font-bold font-mono underline ">Signup</h3>
 
         <div className="relative mb-6">
@@ -48,7 +46,7 @@ function Signup() {
           <input
             type="email"
             value={email}
-            onChange={(e) =>setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
             className="block w-full h-12 px-10 py-2.5 bg-white leading-7 text-base font-normal shadow-xs text-gray-900  border border-gray-300 rounded-full placeholder-gray-400 focus:outline-none"
             placeholder="Enter Email"
             required

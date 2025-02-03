@@ -8,15 +8,15 @@ function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-// event handle_submit 
-  function handleSubmit (e){
+  // event handle_submit 
+  function handleSubmit(e) {
     e.preventDefault()
-   if (!email || !password) {
-    return alert("Password and email are required");
-  } 
-   login(email, password)
-  } 
-    
+    if (!email || !password) {
+      return alert("Password and email are required");
+    }
+    login(email, password)
+  }
+
   return (
     <div className="flex p-20 justify-center items-center min-h-[80vh] font-mono">
       <form id='login'
@@ -47,7 +47,6 @@ function Login() {
             required
           />
         </div>
-
         <button type="submit" className=" h-12 bg-gray-500 hover:bg-cyan-800 transition-all duration-700 rounded-full shadow-xs text-black text-base font-semibold leading-6 mb-6 px-10"
         > Login </button>
         <div className='font-mono text-blue-950 font-semibold'>

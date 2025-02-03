@@ -9,12 +9,12 @@ function Logout() {
   // handle logout
   const handleLogout = () => {
     logout(); // Call context logout function
-    navigate("/"); 
+    navigate("/");
   };
 
 
   return (
-         <button type="button" onClick={handleLogout} className=" block md:hover:bg-cyan-100 bg-gray-500 focus:ring-4 focus:outline-none focus:ring-cyan-400 font-semibold rounded-3xl px-3 py-2 text-center ">Logout</button>
+    <button type="button" onClick={handleLogout} className=" block md:hover:bg-cyan-100 bg-gray-500 focus:ring-4 focus:outline-none focus:ring-cyan-400 font-semibold rounded-3xl px-3 py-2 text-center ">Logout</button>
 
   );
 }

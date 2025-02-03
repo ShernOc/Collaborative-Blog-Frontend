@@ -6,12 +6,12 @@ import { ToastContainer } from 'react-toastify';
 export default function Layout() {
   return (
     <div>
-      <Navbar/>
+      <Navbar />
       <div className="min-h-[90vh] bg-gray-200 container mx-auto p-8">
         <Outlet />
-         <ToastContainer />
+        <ToastContainer />
       </div>
-      <Footer/>
+      <Footer />
     </div>
   )
 }
