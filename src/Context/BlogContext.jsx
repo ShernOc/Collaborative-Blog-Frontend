@@ -39,6 +39,7 @@ export const BlogProvider = ({ children }) => {
         if (!authToken) return;
         fetch("http://127.0.0.1:5000/blogs", {
             method: "GET",
+            mode: "cors",
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${authToken}`
@@ -57,6 +58,7 @@ export const BlogProvider = ({ children }) => {
         toast.loading("Adding a blog ... ")
         fetch("http://127.0.0.1:5000/blogs", {
             method: "POST",
+            mode:"cors",
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${authToken}`
@@ -92,6 +94,7 @@ export const BlogProvider = ({ children }) => {
         toast.loading("Updating blog ... ")
         fetch(`http://127.0.0.1:5000/blogs/update/${blog_id}`, {
             method: "PATCH",
+            mode: "cors",
             headers: {
                 'Content-Type': 'application/json',
                 Authorization:`Bearer ${authToken}`
@@ -128,6 +131,7 @@ export const BlogProvider = ({ children }) => {
         toast.loading("Deleting Blog ... ")
         fetch(`http://127.0.0.1:5000/blogs/delete/${blog_Id}`, {
             method: "DELETE",
+            mode: "cors",
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${authToken}`
@@ -163,6 +167,7 @@ export const BlogProvider = ({ children }) => {
         if (!authToken) return;
         fetch("http://127.0.0.1:5000/editors", {
             method: "GET",
+            mode:"cors",
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${authToken}`
@@ -180,6 +185,7 @@ export const BlogProvider = ({ children }) => {
         toast.loading("Registering an Editor... ")
         fetch("http://127.0.0.1:5000/editors", {
             method: "POST",
+            mode:"cors",
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${authToken}`
@@ -215,6 +221,7 @@ export const BlogProvider = ({ children }) => {
         toast.loading("Registering an Editor... ")
         fetch(`http://127.0.0.1:5000/editors/${editor_id}`, {
             method: "GET",
+            mode:"cors",
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${authToken}`
@@ -251,6 +258,7 @@ export const BlogProvider = ({ children }) => {
         toast.loading("Updating blog ... ")
         fetch(`http://127.0.0.1:5000/blogs/editors/${editor_id}`, {
             method: "PATCH",
+            mode:"cors",
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${authToken}`
@@ -288,6 +296,7 @@ export const BlogProvider = ({ children }) => {
         toast.loading("Deleting Editor ... ")
         fetch(`http://127.0.0.1:5000/blogs/delete/${blog_Id / user_id}`, {
             method: "DELETE",
+            mode:"cors",
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${authToken}`

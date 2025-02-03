@@ -17,12 +17,16 @@ export const CommProvider=({children}) =>{
 
     // Fetch/Get Comments
     useEffect(() => {
+        if (!authToken) return; 
         fetch("http://127.0.0.1:5000/comments", {
             method: "GET",
+            mode:"cors",
             headers: {
                 'Content-Type': 'application/json',
+                "Accept": "application/json",
                 Authorization: `Bearer ${authToken}`
-            }
+            },
+    
         })
             .then((response) => response.json())
             .then((response) => {
@@ -35,6 +39,7 @@ export const CommProvider=({children}) =>{
         toast.loading("Adding a Comment ... ")
         fetch("http://127.0.0.1:5000/comments", {
             method: "POST",
+            mode: "cors",
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${authToken}`
@@ -69,6 +74,7 @@ export const CommProvider=({children}) =>{
         toast.loading("Updating blog ... ")
         fetch(`http://127.0.0.1:5000/blogs/${comment_id}`, {
             method: "PATCH",
+            mode:"cors",
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -104,6 +110,7 @@ export const CommProvider=({children}) =>{
         toast.loading("Deleting Comment ... ")
         fetch(`http://127.0.0.1:5000/blogs/${comment_id}`, {
             method: "DELETE",
+            mode:"cors",
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${authToken}`

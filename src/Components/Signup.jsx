@@ -15,7 +15,7 @@ function Signup() {
     if (password != repeatPassword) {
       return alert("Password does not match");
     }
-    addUser(name, email, password);
+    addUser (name, email, password);
   }
 
   return (

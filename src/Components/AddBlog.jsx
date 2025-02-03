@@ -23,7 +23,7 @@ function AddBlog() {
     //  If not current user/ you have to log in log in 
     if (!current_user) {
       setError("You need to be logged in to add a blog.");
-      navigate("/login");
+      navigate("/dashboard");
       return;
     }
 

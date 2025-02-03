@@ -12,7 +12,7 @@ function Navbar() {
 
   return (
     <>
-      <navbar className="bg-gray-950 
+      <div className="bg-gray-950 
     fixed start-0 w-full z-20 top-0 border-gray-200 dark:border-gray-600 font-mono border-b">
         <div className=" flex-wrap flex justify-between">
           <Link to="/" className="flex items-center space-x-3 rtl:space-x-reverse">
@@ -60,7 +60,7 @@ function Navbar() {
             </ul>
           </div>
         </div>
-      </navbar>
+      </div>
     </>
   )
 }

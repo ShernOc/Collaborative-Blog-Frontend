@@ -9,7 +9,7 @@ export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
     const navigate = useNavigate();
-    const [authToken, setAuthToken] = useState(()=>useSessionStorageState.getItem("token"))
+    const [authToken, setAuthToken] = useSessionStorageState("token", null)
     const [current_user, setCurrentUser] = useState('');
     const [onChange, setOnchange] = useState(null)
 
@@ -25,7 +25,9 @@ export const UserProvider = ({ children }) => {
         toast.loading("Logging you in ... ")
         fetch("http://127.0.0.1:5000/login", {
             method: "POST",
+            mode:"cors",
             headers: {
+                
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
@@ -37,13 +39,14 @@ export const UserProvider = ({ children }) => {
                 if (response.access_token) {
                     toast.dismiss()
                     // set the session storage/ save it the token 
-                    useSessionStorageState.setItem("token", response.access_token);
+                    setAuthToken("token", response.access_token);
 
                     // set auth_token 
                     setAuthToken(response.access_token)
                     setTimeout(() => {
                         fetch("http://127.0.0.1:5000/current_user", {
                             method: "GET",
+                            mode:"cors",
                             headers: {
                                 'Content-Type': 'application/json',
                                 Authorization:`Bearer ${response.access_token}`
@@ -80,6 +83,7 @@ export const UserProvider = ({ children }) => {
             toast.loading("Logging out ... ")
             fetch("http://127.0.0.1:5000/logout",{
                 method:"DELETE",
+                mode:"cors",
                 headers: {
                     'Content-type': 'application/json',
                     Authorization: `Bearer ${authToken}`
@@ -110,10 +114,11 @@ export const UserProvider = ({ children }) => {
     }, [])
 
     const fetchCurrentUser = () => {
-        console.log("Current user function ", authToken);
+        // console.log("Current user function ", authToken);
 
         fetch("http://127.0.0.1:5000/current_user", {
             method: "GET",
+            mode:"cors",
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${authToken}`
@@ -135,11 +140,12 @@ export const UserProvider = ({ children }) => {
         toast.loading("Registering ... ")
         fetch("http://127.0.0.1:5000/users", {
             method: "POST",
+            mode:"cors",
             headers: {
                 "Accept": "application/json",
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ name, email, password })
+            body:JSON.stringify({ name, email, password })
         })
             .then((resp) => resp.json())
             .then((response) => {
@@ -171,6 +177,7 @@ export const UserProvider = ({ children }) => {
         toast.loading("Updating ... ")
         fetch("http://127.0.0.1:5000/users/update", {
             method: "PATCH",
+            mode:"cors",
             headers: {
 
                 'Content-Type': 'application/json',
@@ -206,6 +213,7 @@ export const UserProvider = ({ children }) => {
         toast.loading("Deleting User ... ")
         fetch(`http://127.0.0.1:5000/blogs/${user_id}/delete`, {
             method: "DELETE",
+            mode:"cors",
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${authToken}`

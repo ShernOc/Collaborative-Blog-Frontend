@@ -1,20 +1,20 @@
 import { useEffect, useContext, useState } from "react";
 import { BlogContext } from "../Context/BlogContext";
 import { UserContext } from "../Context/UserContext";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,Link } from 'react-router-dom';
 
 const Dashboard = () => {
 
   const { blogs, fetchBlogs, deleteBlog } = useContext(BlogContext);
-  const { fetchCurrentUser } = useContext(UserContext);
+  const { fetchCurrentUser} = useContext(UserContext);
   const { current_user } = useContext(UserContext);
   const navigate = useNavigate();
   const { loading } = useState(true);
+ 
 
   //gets all the blogs available
   useEffect(() => {
-    fetchBlogs();
-    fetchCurrentUser()
+    fetchCurrentUser();
   }, []);
 
 
@@ -38,7 +38,7 @@ const Dashboard = () => {
           <section>
             <h2 className="text-3xl font-bold text-center mb-6 p-3 ">All Blogs
             </h2>
-            {blogs.length > 0 ? (
+          {blogs.length > 0 ? (
               blogs.map((blog) => (
                 <div key={blog.id} className="bg-gray-950 p-4 mb-4 rounded-3xl shadow">
                   <h3 className="text-3xl font-bold text-cyan-200">{blog.title}</h3>
@@ -63,7 +63,7 @@ const Dashboard = () => {
                 </div>
               ))
             ) : (
-              <p className="text-gray-500">No blogs available.</p>
+              <p className="text-gray-500 font-bold">No blogs available <Link  to = "/addblog"> !! Create a blog</Link></p>
             )}
           </section>
         </>)}
