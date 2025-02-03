@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 export const CommContext = createContext();
 
-function CommProvider({ children }) {
+export const CommProvider=({children}) =>{
 
     // initialize the state 
     const navigate = useNavigate()
@@ -17,7 +17,7 @@ function CommProvider({ children }) {
 
     // Fetch/Get Comments
     useEffect(() => {
-        fetch("https://collaborative-blog-backend.onrender.com/comments", {
+        fetch("http://127.0.0.1:5000/comments", {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json',
@@ -33,7 +33,7 @@ function CommProvider({ children }) {
     // Add Comment
     const addComment = (blog_id, user_id, content) => {
         toast.loading("Adding a Comment ... ")
-        fetch("https://collaborative-blog-backend.onrender.com/comments", {
+        fetch("http://127.0.0.1:5000/comments", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -67,7 +67,7 @@ function CommProvider({ children }) {
     //  Update Comments 
     const updateComment = (content, user_id, blog_id, comment_id) => {
         toast.loading("Updating blog ... ")
-        fetch(`https://collaborative-blog-backend.onrender.com/blogs/${comment_id}`, {
+        fetch(`http://127.0.0.1:5000/blogs/${comment_id}`, {
             method: "PATCH",
             headers: {
                 'Content-Type': 'application/json',
@@ -102,7 +102,7 @@ function CommProvider({ children }) {
     //  Delete Comment
     const deleteComment = (comment_id) => {
         toast.loading("Deleting Comment ... ")
-        fetch(`https://collaborative-blog-backend.onrender.com/blogs/${comment_id}`, {
+        fetch(`http://127.0.0.1:5000/blogs/${comment_id}`, {
             method: "DELETE",
             headers: {
                 'Content-Type': 'application/json',
@@ -142,7 +142,8 @@ function CommProvider({ children }) {
     return (
         <CommContext.Provider value={data}>
             {children}
-        </CommContext.Provider>)
-}
-export default CommProvider;
+        </CommContext.Provider>
+    )
+};
+
 

@@ -1,13 +1,15 @@
 import { createContext, useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import useSesessionStorage from 'use-session-storage-state';
+import useSessionStorageState from "use-session-storage-state";
+
+
 
 export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-    const navigate = useNavigate()
-    const [authToken, setAuthToken] = useState(() => useSesessionStorage.getItem("token"))
+    const navigate = useNavigate();
+    const [authToken, setAuthToken] = useState(()=>useSessionStorageState.getItem("token"))
     const [current_user, setCurrentUser] = useState('');
     const [onChange, setOnchange] = useState(null)
 
@@ -35,7 +37,7 @@ export const UserProvider = ({ children }) => {
                 if (response.access_token) {
                     toast.dismiss()
                     // set the session storage/ save it the token 
-                    useSesessionStorage.setItem("token", response.access_token);
+                    useSessionStorageState.setItem("token", response.access_token);
 
                     // set auth_token 
                     setAuthToken(response.access_token)
@@ -90,7 +92,7 @@ export const UserProvider = ({ children }) => {
                
                 if(response.success)
                 {
-                    useSesessionStorage.removeItem("token");
+                    useSessionStorageState.removeItem("token");
                     setAuthToken(null)
                     setCurrentUser(null)
     

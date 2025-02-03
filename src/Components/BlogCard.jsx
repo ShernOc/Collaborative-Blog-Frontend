@@ -11,7 +11,7 @@ function BlogCard({ blog }) {
 
   // Fetch comments when blog is available
   useEffect(() => {
-    if (!blog_id ?) return;
+    if (!blog?.id) return;
     setLoading(true);
     fetchComments(blog.id)
       .then(() => setLoading(false))
