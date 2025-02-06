@@ -1,19 +1,25 @@
 import { useEffect, useState, useContext } from "react";
 import { CommContext } from "../Context/CommContext";
 import { Link } from "react-router-dom";
+import { BlogContext } from "../Context/BlogContext";
+import { UserContext } from "../Context/UserContext";
 
-function BlogCard({ blog }) {
+function BlogCard({blogs}) {
+  const {updateBlogs, deleteBlog} = useContext(BlogContext)
+  const {current_user}=useContext(UserContext)
   const { comments, addComment, fetchComments } = useContext(CommContext);
 
+  const [title, setTitle] = useState("")
+  const [content, setContent]=useState("")
   const [newComment, setNewComment] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   // Fetch comments when blog is available
   useEffect(() => {
-    if (!blog?.id) return;
+    if (!blogs) return;
     setLoading(true);
-    fetchComments(blog.id)
+    fetchComments(blogs.id)
       .then(() => setLoading(false))
       .catch((err) => {
         setLoading(false);

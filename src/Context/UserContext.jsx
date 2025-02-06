@@ -1,262 +1,267 @@
-import { createContext, useState, useEffect } from "react";
-import { toast } from "react-toastify";
+import { createContext, useEffect, useState } from "react";
+import {toast} from "react-toastify"
 import { useNavigate } from "react-router-dom";
-import useSessionStorageState from "use-session-storage-state";
-
-
 
 export const UserContext = createContext();
 
-export const UserProvider = ({ children }) => {
-    const navigate = useNavigate();
-    const [authToken, setAuthToken] = useSessionStorageState("token", null)
-    const [current_user, setCurrentUser] = useState('');
-    const [onChange, setOnchange] = useState(null)
-
-    console.log("Current user", current_user)
-
-// "https://collaborative-blog-backend.onrender.com/users
-    // Functions Fetching 
+export const UserProvider = ({ children }) => 
+{
+    const navigate = useNavigate()
+    const [authToken , setAuthToken] = useState(()=> sessionStorage.getItem("token"));
+    const [users, setUsers] = useState([]);
     
-// LOGIN 
-    const login = (email, password) =>
-    // loads for the data 
+    const [current_user, setCurrentUser] = useState("")
+    const [onChange, setOnChange] = useState(true);
+
+
+    console.log("Current user ",current_user)
+
+
+    // LOGIN
+    const login = (email, password) => 
     {
         toast.loading("Logging you in ... ")
-        fetch("https://collaborative-blog-backend.onrender.com/login", {
-            method: "POST",
-            mode:"cors",
+        fetch("https://collaborative-blog-backend.onrender.com/login",{
+            method:"POST",
             headers: {
-                
-                'Content-Type': 'application/json'
-            },
+                'Content-Type': 'application/json',
+              },
             body: JSON.stringify({
                 email, password
             })
         })
-            .then((resp) => resp.json())
-            .then((response) => {
-                if (response.access_token) {
-                    toast.dismiss()
-                    // set the session storage/ save it the token 
-                    setAuthToken("token", response.access_token);
+        .then((resp)=>resp.json())
+        .then((response)=>{
+            if(response.access_token){
+                toast.dismiss()
 
-                    // set auth_token 
-                    setAuthToken(response.access_token)
-                    setTimeout(() => {
-                        fetch("https://collaborative-blog-backend.onrender.com/current_user", {
-                            method: "GET",
-                            mode:"cors",
-                            headers: {
-                                'Content-Type': 'application/json',
-                                Authorization:`Bearer ${response.access_token}`
-                            }
-                        })
-                            .then((response) => response.json())
-                            .then((response) => {
-                                if (response) {
-                                    // saved as current user
-                                    setCurrentUser(response)
-                                }
-                            });
-                    }, 500); // set session storage 
+                sessionStorage.setItem("token", response.access_token);
 
-                    toast.success("Successfully Logged in")
-                    navigate("/dashboard")
-                }
-                else if (response.error) {
-                    toast.dismiss()
-                    toast.error(response.error || "Failed to login ")
+                setAuthToken(response.access_token)
 
-                }
-                else {
-                    toast.dismiss()
-                    toast.error("Failed to login")
+                fetch('https://collaborative-blog-backend.onrender.com/current_user',{
+                    method:"GET",
+                    headers: {
+                        'Content-type': 'application/json',
+                        Authorization: `Bearer ${response.access_token}`
+                    },
+                })
+                .then((response) => response.json())
+                .then((response) => {
+                  if(response.email){
+                          setCurrentUser(response)
+                        }
+                });
 
-                }
-            })
+                toast.success("Successfully Logged in")
+                navigate("/dashboard");
+            }
+            else if(response.error){
+                toast.dismiss()
+                toast.error(response.error);
+
+            }
+            else{
+                toast.dismiss()
+                toast.error("Failed to login")
+
+            }        
+        })
     };
 
-    //Logout  
     const logout = () => 
-        {
-            toast.loading("Logging out ... ")
-            fetch("https://collaborative-blog-backend.onrender.com/logout",{
-                method:"DELETE",
-                mode:"cors",
-                headers: {
-                    'Content-type': 'application/json',
-                    Authorization: `Bearer ${authToken}`
-                  },
+    {
+
+        toast.loading("Logging out ... ")
+        fetch("https://collaborative-blog-backend.onrender.com/logout",{
+            method:"DELETE",
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${authToken}`
+              },
+       
+        })
+        .then((resp)=>resp.json())
+        .then((response)=>{
+           console.log(response);
            
-            })
-            .then((resp)=>resp.json())
-            .then((response)=>{
-               console.log(response);
-               
-                if(response.success)
-                {
-                    useSessionStorageState.removeItem("token");
-                    setAuthToken(null)
-                    setCurrentUser(null)
+            if(response.success)
+            {
+                sessionStorage.removeItem("token");
+                setAuthToken(null);
+                setCurrentUser(null);
+
+                toast.dismiss();
+                toast.success("Successfully Logged out");
+                navigate("/");
+            }
+        })
+    };
+
+    // Fetch current user
+    useEffect(()=>{
+        if (authToken){
+            fetchCurrentUser();
+        }
+        
+    }, [authToken])
     
-                    toast.dismiss()
-                    toast.success("Successfully Logged out")
-                    navigate("/login")
-                }
-            })
-        };
+    console.log("Current user function",authToken);
+        
+    const fetchCurrentUser = () => 
+    {
     
-
-    // Fetch/ Get current user
-    useEffect(() => {
-        if (authToken) fetchCurrentUser();
-    }, [])
-
-    const fetchCurrentUser = () => {
-        // console.log("Current user function ", authToken);
-
-        fetch("https://collaborative-blog-backend.onrender.com/current_user", {
-            method: "GET",
-            mode:"cors",
+    fetch('https://collaborative-blog-backend.onrender.com/current_user',{
+            method:"GET",
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${authToken}`
             }
         })
-            .then((response) => response.json())
-            .then((response) => {
-                if (response.email) {
-                    setCurrentUser(response)
-                }
-            });
+        .then((response) => response.json())
+        .then((response) => {
+          if(response.email){
+           setCurrentUser(response);
+          }
+        });
     };
 
+    // Fetch all users 
+    useEffect(() => {
+        fetch("https://collaborative-blog-backend.onrender.com/users", {
+          method: "GET",
+          headers: {
+            "Content-type": "application/json",
+          },
+        })
+          .then((response) => response.json())
+          .then((response) => {
+            setUsers(response);
+            // console.log(response)
+          });
+      }, []);
     
 
-    //Add User 
-    const addUser = (name, email, password) => {
-
+    // ADD user
+    const addUser = (name, email, password) => 
+    {
         toast.loading("Registering ... ")
-        fetch("https://collaborative-blog-backend.onrender.com/users", {
-            method: "POST",
-            mode:"cors",
+        fetch("https://collaborative-blog-backend.onrender.com/users",{
+            method:"POST",
             headers: {
-                "Accept": "application/json",
-                'Content-Type': 'application/json'
-            },
-            body:JSON.stringify({ name, email, password })
-        })
-            .then((resp) => resp.json())
-            .then((response) => {
-                console.log("Response from backend:", response);
-
-                if (response.success) {
-                    toast.dismiss();
-                    toast.success(response.success);
-                    navigate("/login")
-                }
-                // if there is an error, 
-                else if (response.error) {
-                    toast.dismiss();
-                    toast.error(response.error)
-                }
-                else {
-                    toast.dismiss()
-                    toast.error(response.error || "Error during registration.")
-                }
+                'Content-Type': 'application/json',
+              },
+            body: JSON.stringify({
+                name, email, password
             })
-        console.log("user", name);
-    };
+        })
+        .then((resp)=>resp.json())
+        .then((response)=>{
+            
+            console.log(response);
+            
+            if(response.success){
+                toast.dismiss()
+                toast.success(response.msg || "User added Successfully")
+                navigate("/dashboard")
+            }
+            else if(response.error){
+                toast.dismiss();
+                toast.error(response.error)
+            }
+            else{
+                toast.dismiss();
+                toast.error("You are already registered! Login")
+            } })
+};
 
-
-    // Update A User
 
     const updateUser = (name, email, password) => {
-
-        toast.loading("Updating ... ")
-        fetch("https://collaborative-blog-backend.onrender.com/users/update", {
-            method: "PATCH",
-            mode:"cors",
-            headers: {
-
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${authToken}`
-
-            },
-            body: JSON.stringify({ name, email, password })
-        })
-            .then((resp) => resp.json())
-            .then((response) => {
-                console.log("Response from backend:", response);
-
-                if (response.success) {
-                    toast.dismiss();
-                    toast.success(response.success);
-                    navigate("/profile")
-                }
-                else if (response.error) {
-                    toast.dismiss();
-                    toast.error(response.error, "Failed to update your profile")
-                }
-                else {
-                    toast.dismiss()
-                    toast.error(response.error || "Error during registration.")
+            toast.loading("Updating ... ")
+            fetch("https://collaborative-blog-backend.onrender.com/users/update", {
+                method: "PATCH",
+                mode:"cors",
+                headers: {
+    
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${authToken}`
+    
+                },
+                body: JSON.stringify({ name, email, password })
+            })
+                .then((resp) => resp.json())
+                .then((response) => {
+                    console.log("Response from backend:", response);
+    
+                    if (response.success) {
+                        toast.dismiss();
+                        toast.success("User updated Successfully");
+                        navigate("/login")
+                    }
+                    else if (response.error) {
+                        toast.error(response.error||"Failed to update your profile")
+                    }
+                    else {
+                        toast.error(response.error || "Error during registration.")
+                        alert("User not Updated")
+                    }
+                })
+            console.log("user", name);
+        };
+    
+    
+        //  Delete User
+        const deleteUser = (user_id) => {
+            toast.loading("Deleting User ... ")
+            fetch(`https://collaborative-blog-backend.onrender.com/blogs/${user_id}/delete`, {
+                method: "DELETE",
+                mode:"cors",
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${authToken}`
+    
                 }
             })
-        console.log("user", name);
-    };
+                .then((resp) => resp.json())
+                .then((response) => {
+    
+                    if (response.success) {
+                        toast.dismiss()
+                        toast.success(response.success)
+                    }
+    
+                    else if (response.error) {
+                        toast.dismiss()
+                        toast.error(response.error || "Failed to delete blog!")
+                    }
+                    else {
+                        toast.dismiss()
+                        toast.error("Failed to delete")
+                    }
+    
+                })
+            console.log("Deleting user:", user_id);
+        };
 
+// Update the User
 
-    //  Delete User
-    const deleteUser = (user_id) => {
-        toast.loading("Deleting User ... ")
-        fetch(`https://collaborative-blog-backend.onrender.com/blogs/${user_id}/delete`, {
-            method: "DELETE",
-            mode:"cors",
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${authToken}`
+  const data = {
+    authToken,
+    fetchCurrentUser,
+    users,
+    current_user,
+    login,
+    logout,
+    addUser,
+    updateUser,
+    deleteUser,
+  };
 
-            }
-        })
-            .then((resp) => resp.json())
-            .then((response) => {
-
-                if (response.success) {
-                    toast.dismiss()
-                    toast.success(response.success)
-                    setOnchange(!onChange)
-                }
-
-                else if (response.error) {
-                    toast.dismiss()
-                    toast.error(response.error || "Failed to delete blog!")
-                }
-                else {
-                    toast.dismiss()
-                    toast.error("Failed to delete")
-                }
-
-            })
-        console.log("Deleting user:", user_id);
-    };
-
-
-    // call the functions 
-    const data = {
-        authToken,
-        login,
-        fetchCurrentUser,
-        logout,
-        addUser,
-        updateUser,
-        deleteUser,
-    };
-
-    return (
+  return (
         <UserContext.Provider value={data}>
             {children}
         </UserContext.Provider>
     )
 };
+
+

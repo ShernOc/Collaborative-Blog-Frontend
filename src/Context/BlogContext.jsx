@@ -49,7 +49,7 @@ export const BlogProvider = ({ children }) => {
             .then((response) => {
                 setBlogs(response)
             });
-    }, [onChange])
+    }, [])
 
 
     // Add Blog
@@ -75,6 +75,7 @@ export const BlogProvider = ({ children }) => {
                 if (response.success) {
                     toast.dismiss()
                     toast.success(response.success);
+                    setBlogs((prevBlogs) => [...prevBlogs, response.new_blog]); 
                     setOnchange(!onChange)
                 }
                 else if (response.error) {
@@ -87,7 +88,7 @@ export const BlogProvider = ({ children }) => {
                     toast.error("Failed to add a blog")
                 }
             })
-    }
+    };
 
     //Update Blog
     const updateBlog = (blog_id, title, content, is_published) => {

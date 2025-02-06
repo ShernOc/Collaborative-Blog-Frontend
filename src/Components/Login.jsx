@@ -15,6 +15,7 @@ function Login() {
       return alert("Password and email are required");
     }
     login(email, password)
+    navig
   }
 
   return (

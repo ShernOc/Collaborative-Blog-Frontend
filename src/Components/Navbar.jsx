@@ -7,7 +7,7 @@ import Logout from "./Logout";
 
 function Navbar() {
 
-  const { current_user } = useContext(UserContext);
+  const { current_user,users } = useContext(UserContext);
 
 
   return (
@@ -26,37 +26,34 @@ function Navbar() {
                 <Link to="/" className="block py-2 px-3 text-cyan-400 rounded-sm  md:text-cyan-300 hover:md:dark:text-cyan-600" aria-current="page">Home</Link>
               </li>
               <li>
-                <Link to="/dashboard" className="block py-2 px-3 text-cyan-400 rounded-sm  md:text-cyan-300 hover:md:dark:text-cyan-600" aria-current="page">Blogs</Link>
-              </li>
-              <li>
                 <Link to="/contact" className="block py-2 px-3 text-cyan-400 rounded-sm  md:text-cyan-300 hover:md:dark:text-cyan-600">Contacts</Link>
               </li>
               <div id="protect routes">
-                {current_user ? (
+                {current_user== users? (
                   <>
+              <li>
+                <Link to="/dashboard" className="block py-2 px-3 text-cyan-400 rounded-sm  md:text-cyan-300 hover:md:dark:text-cyan-600" aria-current="page">Dashboard</Link>
+              </li>
+              <li>
+                  <Link to="/addblog" className="block py-2 px-3 text-cyan-400 rounded-sm  md:text-cyan-300 hover:md:dark:text-cyan-600">Add a Blog</Link>
+                    </li>
                     <li>
                       <Link to="/profile" className="block py-2 px-3 text-cyan-400 rounded-sm  md:text-cyan-300 hover:md:dark:text-cyan-600">Profile</Link>
                     </li>
                     <li>
-                      <Link to="/addblog" className="block py-2 px-3 text-cyan-400 rounded-sm  md:text-cyan-300 hover:md:dark:text-cyan-600">Add a Blog</Link>
-                    </li>
-                    <li>
-                      <Logout />
-                    </li>
+                <Logout />
+                   </li>
                   </>) : (
                   <li>
                     <Link to="/login">
-                      <button type="button" className=" block md:hover:bg-cyan-100 bg-gray-500 focus:ring-4 focus:outline-none focus:ring-cyan-400 font-semibold rounded-3xl px-3 py-2 text-center "> Login </button>
+                      <button type="button" className=" block md:hover:bg-cyan-100 bg-gray-500 focus:ring-4 focus:outline-none focus:ring-cyan-400 font-semibold rounded-3xl px-3 py-2 text-center "> Login</button>
                     </Link>
                   </li>)}
               </div>
-              <li>
+              {/* <li>
                 <Link to="/signup">
                   <button type="button" className=" block md:hover:bg-cyan-100 bg-gray-500 focus:ring-4 focus:outline-none focus:ring-cyan-400 font-semibold rounded-3xl px-3 py-2 text-center ">Signup</button> </Link>
-              </li>
-              <li>
-                <Logout />
-              </li>
+              </li> */}
             </ul>
           </div>
         </div>

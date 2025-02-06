@@ -4,6 +4,7 @@ import { UserContext } from '../Context/UserContext';
 
 function Profile() {
   const { current_user, updateUser } = useContext(UserContext)
+  console.log(current_user);
   const [editing, setEditing] = useState(false);
   const [formData, setFormData] = useState({
     role: current_user?.role || "",
@@ -29,8 +30,9 @@ function Profile() {
       {
         !current_user ? ("Not authorized")
           : (
-            <div className="max-w-prose  absolute top-0 insert-x-0 p-6  shadow-lg rounded 4xl mt-10 bg-cyan-200">
+            <div className="max-w-prose  absolute top-0 insert-x-0 p-50  shadow-lg rounded 4xl mt-10 bg-cyan-200">
               <h2 className="text-3xl font-semibold text-gray-700 mb-6"> {current_user.name}</h2>
+              h3
 
               <div className="space-y-4">
                 <div className="flex justify-between">

@@ -1,17 +1,31 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { BlogContext } from "../Context/BlogContext";
 import { UserContext } from '../Context/UserContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 
-function AddBlog() {
-  const { addBlog } = useContext(BlogContext);
+
+function EditBlog() {
+  const {blogs, updateBlog } = useContext(BlogContext);
+  const {id} = useParams();
   const { current_user } = useContext(UserContext)
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const [isPublished, setIsPublished] = useState('false');
-  const [error, setError] = useState("");
   const navigate = useNavigate();
+
+
+  const existingBlog = blogs.find(blog => blog.id === parseInt(id));
+
+  const [title, setTitle] = useState(existingBlog?.title ||"");
+  const [content, setContent] = useState(existingBlog?.content ||"");
+  const [isPublished, setIsPublished] = useState(existingBlog?.isPublished ||false);
+  const [error, setError] = useState("");
+
+  // look for a blog  if it exist 
+    useEffect(() => {
+    if (!existingBlog) {
+      setError("Blog not found!");
+    }
+  }, [existingBlog]);
+
 
   // handle form submit 
   const handleSubmit = (e) => {
@@ -27,22 +41,19 @@ function AddBlog() {
       return;
     }
 
-    // New blog creation 
-    const newBlog = { title, content, isPublished };
+    // Create the updated blog object
+    const updatedBlog = { id: existingBlog.id, title, content, isPublished };
 
     // calling the add blog from new blog
-    addBlog(newBlog)
-    // resets the form to a new page 
-    setTitle("");
-    setContent("");
-    setIsPublished(false);
-    setError(""); // Clear error message
+    updateBlog(updatedBlog)
+      // Redirect to Dashboard after editing
+      navigate("/dashboard");
   };
 
   return (
     <>
       <div className="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg mt-10">
-        <h2 className="text-3xl font-semibold text-gray-700 mb-6">Add a New Blog</h2>
+        <h2 className="text-3xl font-semibold text-gray-700 mb-6">Edit Blog</h2>
 
         {/* Error message */}
         {error && <p className="text-red-500 mb-4">{error}</p>}
@@ -63,7 +74,7 @@ function AddBlog() {
               required
             />
           </div>
-          {/* content  */}
+          {/* content*/}
           <div>
             <label htmlFor="content" className="block text-lg font-medium text-gray-600">
               Content
@@ -79,24 +90,26 @@ function AddBlog() {
             ></textarea>
           </div>
 
-          <div>
-            <label className="inline-flex items-center">
-              <input
-                type="checkbox"
-                checked={isPublished}
-                onChange={(e) => setIsPublished(e.target.checked)}
-                className="form-checkbox"
-              />
-              <span className="ml-2">Publish immediately</span>
-            </label>
-          </div>
-
+           {/* Publish Checkbox */}
+        <div>
+          <label className="inline-flex items-center">
+            <input
+              type="checkbox"
+              checked={isPublished}
+              onChange={(e) => setIsPublished(e.target.checked)}
+              className="form-checkbox"
+            />
+            <span className="ml-2">Publish immediately</span>
+          </label>
+        </div>
+        
+        {/* submit button */}
           <div className="mt-6 flex justify-end">
             <button
               type="submit"
               className="px-6 py-2 bg-indigo-600 text-white font-medium rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
             >
-              Submit
+              save changes 
             </button>
           </div>
         </form>
@@ -104,4 +117,4 @@ function AddBlog() {
 
     </>);
 };
-export default AddBlog;
+export default EditBlog;

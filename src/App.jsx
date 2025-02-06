@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-// import { ToastContainer,toast } from 'react-toastify';
+import { ToastContainer} from 'react-toastify';
 import Home from './Components/Home';
 import Dashboard from './Components/Dashboard';
 import AddBlog from './Components/AddBlog';
@@ -15,9 +15,9 @@ import {UserProvider} from './Context/UserContext';
 import {CommProvider} from './Context/CommContext'
 import Footer from './Components/Footer';
 import BlogCard from './Components/BlogCard';
-// not true 
-import Blog from './Components/BlogCard';
 import Data from '../data';
+import EditBlog from './Components/EditBlog';
+
 
 
 function App() {
@@ -32,6 +32,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/addblog" element={<AddBlog/>} />
+              <Route path="/editblog" element={<EditBlog/>} />
               <Route path="/dashboard" element={<Dashboard/>} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/profile" element={<Profile />} />
@@ -39,13 +40,13 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/blogcard" element={<BlogCard />} />
-              <Route path="/blogs" element={<Blog />} />
               <Route path="/data" element={<Data />} />
             </Routes>
             </CommProvider>
           </BlogProvider> 
           <Footer/>
         </UserProvider>
+        <ToastContainer/>
       </BrowserRouter>
     
     </>

@@ -14,10 +14,12 @@ function Signup() {
     e.preventDefault()
     if (password != repeatPassword) {
       return alert("Password does not match");
-    }
-    addUser (name, email, password);
-  }
+    } 
 
+    addUser (name, email, password);
+
+    };
+  
   return (
     <div className="flex justify-center items-center font-mono min-h-[80vh] p-20">
       <form id='signup'
