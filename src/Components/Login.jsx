@@ -1,12 +1,13 @@
 // Login.jsx
 import { useState, useContext } from 'react';
-import { Link } from 'react-router-dom';
+import {useNavigate, Link } from 'react-router-dom';
 import { UserContext } from '../Context/UserContext';
 
 function Login() {
   const { login } = useContext(UserContext)
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   // event handle_submit 
   function handleSubmit(e) {
@@ -14,9 +15,10 @@ function Login() {
     if (!email || !password) {
       return alert("Password and email are required");
     }
+   
     login(email, password)
-    navig
-  }
+    navigate("/dashboard")
+  };
 
   return (
     <div className="flex p-20 justify-center items-center min-h-[80vh] font-mono">

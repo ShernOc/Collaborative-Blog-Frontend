@@ -1,39 +1,24 @@
 import { useEffect, useContext, useState } from "react";
 import { BlogContext } from "../Context/BlogContext";
 import { UserContext } from "../Context/UserContext";
-import { useNavigate,Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Dashboard = () => {
-  const { blogs,fetchBlogs} = useContext(BlogContext)|| {};
-  const {current_user,fetchCurrentUser, users} = useContext(UserContext)|| {};
-  const navigate = useNavigate();
-  const { loading, setLoading} = useState(true);
-  const [onChange, setOnChange] = useState(true);
-
+  const { blogs,fetchBlogs} = useContext(BlogContext)||{};
+  const {fetchCurrentUser, users, current_user} = useContext(UserContext);
+  // const navigate = useNavigate();
+  const  [loading, setLoading] = useState(false);
 
   
-  useEffect(() => {
-      fetchBlogs();
-    }, [onChange]);
-
-  useEffect(() => {
-    if (!current_user){
-      fetchCurrentUser();
-    };
-    
-  }, [fetchCurrentUser, current_user])
-
   //gets all the blogs available
   useEffect(() => {
-    if(blogs && blogs.length>0 && loading){
-      setLoading(false);
-    }else{
-      setLoading(true);
-    } ;
+    fetchBlogs();
+    fetchCurrentUser()
   
-  },[blogs, loading]);
+  },[]);
 
-  console.log(users,"current user",current_user, blogs)
+  console.log(users,
+    current_user,"current user",blogs)
 
 
   return (
@@ -56,16 +41,19 @@ const Dashboard = () => {
           <section>
             <h2 className="text-3xl font-bold text-center mb-6 p-3 ">All Blogs
             </h2>
-          { users && blogs.length > 0 ? (
+          {blogs.length > 0 ? (
               blogs.map((blog) => (
-                <div key={blog} className="bg-gray-950 p-4 mb-4 rounded-3xl shadow">
+                <div key={blog.id} className="bg-gray-950 p-4 mb-4 rounded-3xl shadow">
+                  {/* Allow the blog to link  */}
+                  <Link to={`/oneblog/${blog.id}`}> 
                   <h3 className="text-3xl font-bold text-cyan-200">{blog.title}</h3>
+                  </Link>
                   <p className="text-zinc-300">{blog.content.substring(0, 256)}...</p>
                   <p className="text-sm text-zinc-300">By {blog.user_id}</p>
                 </div>
               ))
             ) : (
-              <p className="text-gray-500 font-bold">No blogs available <Link  to = "/addblog"> !! Create a blog</Link></p>
+              <p className="text-gray-500 font-bold">No blogs available <Link to = "/addblog"> !! Create a blog</Link></p>
             )}
           </section>
         </>)}

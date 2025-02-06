@@ -9,8 +9,7 @@ export const UserProvider = ({ children }) =>
     const navigate = useNavigate()
     const [authToken , setAuthToken] = useState(()=> sessionStorage.getItem("token"));
     const [users, setUsers] = useState([]);
-    
-    const [current_user, setCurrentUser] = useState("")
+    const [current_user, setCurrentUser] = useState(null);
     const [onChange, setOnChange] = useState(true);
 
 
@@ -69,6 +68,10 @@ export const UserProvider = ({ children }) =>
         })
     };
 
+    // console.log(login("sherlyne@gmail.com","1234"))
+
+  
+
     const logout = () => 
     {
 
@@ -92,7 +95,7 @@ export const UserProvider = ({ children }) =>
                 setCurrentUser(null);
 
                 toast.dismiss();
-                toast.success("Successfully Logged out");
+                toast.success("Successfully L.ogged out");
                 navigate("/");
             }
         })
@@ -100,7 +103,7 @@ export const UserProvider = ({ children }) =>
 
     // Fetch current user
     useEffect(()=>{
-        if (authToken){
+        if (!authToken){
             fetchCurrentUser();
         }
         

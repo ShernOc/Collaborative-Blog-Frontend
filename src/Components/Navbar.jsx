@@ -7,7 +7,9 @@ import Logout from "./Logout";
 
 function Navbar() {
 
-  const { current_user,users } = useContext(UserContext);
+  const { current_user} = useContext(UserContext);
+
+  console.log(current_user)
 
 
   return (
@@ -29,7 +31,7 @@ function Navbar() {
                 <Link to="/contact" className="block py-2 px-3 text-cyan-400 rounded-sm  md:text-cyan-300 hover:md:dark:text-cyan-600">Contacts</Link>
               </li>
               <div id="protect routes">
-                {current_user== users? (
+                {current_user? (
                   <>
               <li>
                 <Link to="/dashboard" className="block py-2 px-3 text-cyan-400 rounded-sm  md:text-cyan-300 hover:md:dark:text-cyan-600" aria-current="page">Dashboard</Link>

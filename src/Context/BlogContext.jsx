@@ -34,6 +34,34 @@ export const BlogProvider = ({ children }) => {
     //                 });
     //        }, [onChange,authToken] }
 
+     // Fetch current user
+    //  useEffect(()=>{
+    //     if (!authToken){
+    //         fetchBlogs();
+    //     }
+        
+    // }, [authToken])
+
+    const fetchBlogs = () => 
+        {
+        
+        fetch('https://collaborative-blog-backend.onrender.com/blogs',{
+                method:"GET",
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${authToken}`
+                }
+            })
+            .then((response) => response.json())
+            .then((response) => {
+              if(response.email){
+               setBlogs(response);
+              }
+            });
+        };
+
+
+    // fetch all blogs
     useEffect(() => {
         // no token no blog 
         if (!authToken) return;
@@ -50,6 +78,8 @@ export const BlogProvider = ({ children }) => {
                 setBlogs(response)
             });
     }, [])
+
+
 
 
     // Add Blog
@@ -330,6 +360,7 @@ export const BlogProvider = ({ children }) => {
     const data = {
         editors,
         blogs,
+        fetchBlogs,
         addBlog,
         updateBlog,
         deleteBlog,
